@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import * as Actions from '../actions/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component{
   constructor(props){
@@ -15,7 +16,7 @@ class Header extends React.Component{
     if(this.props.receiveMenu.menu !== undefined){
       PrimaryMenu =
       <ul>
-        {this.props.receiveMenu.menu.map((menuItem) => <li key={menuItem.object_id}><a href='#'>{menuItem.title}</a></li>)}
+        {this.props.receiveMenu.menu.map((menuItem) => <li key={menuItem.object_id}><Link to='/wpReactTheme/'>{menuItem.title}</Link></li>)}
       </ul>
     }
 
