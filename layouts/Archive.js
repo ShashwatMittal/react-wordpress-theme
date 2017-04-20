@@ -1,35 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Post from '../components/Post';
+import Posts from '../components/Posts';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions/actions';
 import Header from '../components/Header';
-
+import Pagination from '../components/componentParts/Pagination';
 class Archive extends React.Component{
-
 	constructor(props){
-		super(props);
-		props.actions.fetchPosts(2);
+		super(props)
+		console.log(props);
+		this.state = {
+			page: props.match.params.page
+		}
+		const {params} = props.match
+		const {fetchPosts} = props.actions
+		fetchPosts(params.page)
+	}
+	componentWillReceiveProps(nextProps){
+		const {fetchPosts} = nextProps.actions
+		const { page } = nextProps.match.params
+		if(this.props.match.params.page !== nextProps.match.params.page){
+			fetchPosts(page)
+		}
 	}
 
 	render(){
-		let Pagination;
-		console.log(this.props);
-		if(this.props.receivePosts.page !== 1){
-			Pagination =
-			<p><a href='#'>Previous</a> {this.props.receivePosts.page} <a href='#'>Next</a></p>
-		}else{
-			Pagination =
-			<p>{this.props.receivePosts.page} <a href='#'>Next</a></p>
-		}
-
 		const {receivePosts} = this.props;
+		const { currentPage, noOfPages, isLoading} = receivePosts;
+		const {fetchPost} = this.props.actions;
 		return(
 			<div>
 				<Header />
 				<h1>Archive Page Heading</h1>
-				<Post posts = {receivePosts}/>
-				{Pagination}
+				{isLoading ? <h2>Fetching...</h2> : <Posts {...receivePosts}/> }
+				<Pagination currentPage={currentPage} noOfPages={noOfPages} action={fetchPost}/>
 			</div>
 		);
 	}
