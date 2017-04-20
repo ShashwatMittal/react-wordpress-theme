@@ -1,7 +1,7 @@
 {
   "name": "reacttheme",
   "version": "1.0.0",
-  "description": "This is a Copy of the Twenty Sixteen WordPress theme made with React.",
+  "description": "A React base WordPress theme which uses WordPress REST API.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot"
