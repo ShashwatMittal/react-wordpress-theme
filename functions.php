@@ -28,7 +28,8 @@ function enqueue_scripts(){
             'API' => get_site_url() . '/wp-json/wp/v2/',
             'POSTS_PER_PAGE' => get_option('posts_per_page'),
             'MENUS_API' => 'wp-json/wp-api-menus',
-            'PERMALINK_STRUCTURE' => get_option('permalink_structure')
+            'PERMALINK_STRUCTURE' => get_option('permalink_structure'),
+            'FRONT_PAGE' => get_option('page_on_front')
 
         )
     );
