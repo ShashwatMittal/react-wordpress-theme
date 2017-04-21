@@ -8,6 +8,7 @@ import Header from '../components/Header';
 
 class Home extends Component{
 	render() {
+		console.log(phpData.constants);
 	    return(
 					<div>
 						<Header/>

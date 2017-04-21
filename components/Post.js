@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import renderHTML from 'react-render-html';
 class Post extends Component{
   render() {

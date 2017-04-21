@@ -1,7 +1,7 @@
-import React,{ Component } from 'react';
+import React,{Component} from 'react';
 import renderHTML from 'react-render-html';
-import { Link } from 'react-router-dom';
-class Posts extends Component {
+import {Link} from 'react-router-dom';
+class PostList extends Component {
 
   render () {
     const {posts} = this.props
@@ -23,4 +23,4 @@ class Posts extends Component {
     );
   }
 }
-module.exports = Posts;
+module.exports = PostList;

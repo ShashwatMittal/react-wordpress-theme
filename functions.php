@@ -25,12 +25,11 @@ function enqueue_scripts(){
             'SITE_DESCRIPTION'=> get_bloginfo('description'),
             'SITE_URL' => get_bloginfo('url'),
             'WP_VERSION' => get_bloginfo('version'),
-            'API' => get_site_url() . '/wp-json/wp/v2/',
+            'API' => '/wp-json/wp/v2/',
             'POSTS_PER_PAGE' => get_option('posts_per_page'),
             'MENUS_API' => 'wp-json/wp-api-menus',
             'PERMALINK_STRUCTURE' => get_option('permalink_structure'),
             'FRONT_PAGE' => get_option('page_on_front')
-
         )
     );
     wp_localize_script('react_theme', 'phpData' , $translation_array);
