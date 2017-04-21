@@ -1,17 +1,17 @@
 import React from 'react';
-import SearchForm from '../components/SearchForm';
+import {Link} from 'react-router-dom';
 
 export default class Error extends React.Component {
     render() {
     return(
 	     <section className = "error-404 not-found">
 	      <header className = "page-header">
-	       <h1 className="page-title" >{this.props.data.errorPage.title}</h1>
+	       <h1 className="page-title" >Thats Embarassing</h1>
 	      </header>
 	      <div className = "page-content" >
-	      <p>{this.props.data.errorPage.content}</p>
+	      <p>Looks like there does not exist anything at this URL.</p>
         </div>
-        <SearchForm data = {this.props.data.searchForm}/>
+        <Link to='/wpReactTheme/'>Let's Take You Back</Link>
 	     </section>
 	  );
   }
