@@ -12,10 +12,12 @@ import {
   GET_CATEGORIES,
   GET_SETTINGS,
   RECEIVE_MENU,
-  TOTAL_PAGES_FOR_POSTS
+  TOTAL_PAGES_FOR_POSTS,
+  TOTAL_PAGES_FOR_PAGES
 } from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 
+// Actions for retrieving a Single Post.
 function requestPost(id, loading){
   return{
     type: REQUEST_POST,
@@ -24,13 +26,14 @@ function requestPost(id, loading){
   }
 }
 
-function receivePost(id, json){
+function receivePost(json){
   return{
     type: RECEIVE_POST,
     post: json
   }
 }
 
+// Actions for Retrieving List of Posts.
 function requestPosts(currentPage, loading){
   return{
     type: REQUEST_POSTS,
@@ -46,12 +49,45 @@ function receivePosts(pageNum, json){
   }
 }
 
+function noOfPagesforPosts(number){
+  return{
+    type: TOTAL_PAGES_FOR_POSTS,
+    noOfPages: number
+  }
+}
+
+// Actions for retrieving Primary Menu.
 function receiveMenu (menuLocation, json){
   return {
     type: RECEIVE_MENU,
     menuLocation,
     menu: json
   }
+}
+
+// Actions for retrieving a Single Page
+function requestPage(id, loading){
+  return{
+    type:REQUEST_PAGE,
+    id: id,
+    loading: loading
+  }
+}
+
+function receivePage(json){
+  return{
+    type:RECEIVE_PAGE,
+    page: json,
+  }
+}
+
+// Action for retrieving a list of Pages.
+function requestPages(currentPage, loading){
+    return{
+      type: REQUEST_PAGES,
+      loading: loading,
+      currentPage: currentPage
+    }
 }
 
 function receivePages(pages, json){
@@ -61,25 +97,9 @@ function receivePages(pages, json){
   }
 }
 
-function requestPage(id, loading){
+function noOfPagesforPages(number){
   return{
-    type:REQUEST_PAGE,
-    pageID: id,
-    loading: loading
-  }
-}
-
-function receivePage(id, json){
-  return{
-    type:RECEIVE_PAGE,
-    page: json,
-    pageID: id
-  }
-}
-
-function noOfPagesforPosts(number){
-  return{
-    type: TOTAL_PAGES_FOR_POSTS,
+    type: TOTAL_PAGES_FOR_PAGES,
     noOfPages: number
   }
 }
@@ -89,7 +109,7 @@ export function fetchPost(id){
     dispatch(requestPost(id, true));
     return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/posts/'+id)
       .then(response => response.json())
-      .then(json => dispatch(receivePost(id, json)));
+      .then(json => dispatch(receivePost(json)));
   }
 }
 
@@ -105,14 +125,25 @@ export function fetchPosts(currentPage){
   }
 }
 
-export function fetchPages(){
+export function fetchPages(currentPage){
   return dispatch => {
-    dispatch(requestPages(true))
+    dispatch(requestPages(currentPage, true));
+    return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/pages?per_page='+POSTS_PER_PAGE+'&page='+currentPage)
+    .then(function(response){
+      dispatch(noOfPagesforPages(response.headers.get('X-WP-TotalPages')));
+      return response.json();
+    })
+    .then(json => dispatch(receivePages(currentPage, json)));
   }
 }
 
-export function fetchPage(){
-
+export function fetchPage(id){
+  return dispatch => {
+    dispatch(requestPage(id, true));
+    return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/pages/'+id)
+    .then(response => response.json())
+    .then(json => dispatch(receivePage(json)));
+  }
 }
 
 export function fetchMenu(menuLocation){
