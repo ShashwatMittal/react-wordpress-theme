@@ -1,5 +1,4 @@
 import React from 'react';
-import fetch from 'isomorphic-fetch';
 import * as Actions from '../actions/actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
