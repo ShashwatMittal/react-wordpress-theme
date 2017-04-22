@@ -19,7 +19,7 @@ class SinglePost extends Component{
     return(
       <div>
       Hello
-      { isLoading ? <h2>Fetching Post...</h2> : <Post {...this.props.post}/>}
+      {isLoading ? <h2>Fetching Post...</h2> : <Post {...this.props.post}/>}
       </div>
     );
   }
