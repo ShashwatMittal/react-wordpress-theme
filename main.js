@@ -6,13 +6,14 @@ import thunkMiddleware from 'redux-thunk'
 import {createLogger} from 'redux-logger'
 import {BrowserRouter as Router, Route ,browserHistory, Link, Switch} from 'react-router-dom';
 import Home from './layouts/Home'
+import FrontPage from './components/FrontPage'
 import Archive from './layouts/Archive'
 import Pages from './layouts/Pages';
 import SinglePost from './layouts/SinglePost';
 import SinglePage from './layouts/SinglePage';
 import NotFound from './layouts/NotFound';
 import reducer from './reducers/reducers'
-import {fetchPosts, fetchPost, fetchMenu} from './actions/actions'
+
 // Displaying Components for Testing Purposes.
 
 const app = document.getElementById('main');
@@ -32,8 +33,9 @@ ReactDOM.render(
         <Link to='/hello'>Test Link</Link>
         <hr />
 
+        <Route exact path='/wpReactTheme/' component={Home}/>
         <Switch>
-          <Route exact path='/wpReactTheme/' component={Home}/>
+          <Route exact path='/wpReactTheme/' component={FrontPage}/>
           <Route path='/wpReactTheme/archive/p/:page' component={Archive}/>
           <Route path='/wpReactTheme/pages/p/:page' component={Pages}/>
           <Route exact path='/wpReactTheme/archive/:id' component={SinglePost}/>

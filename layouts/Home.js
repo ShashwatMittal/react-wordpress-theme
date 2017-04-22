@@ -10,11 +10,7 @@ class Home extends Component{
 	render() {
 		console.log(phpData.constants);
 	    return(
-					<div>
 						<Header/>
-						<h1>This is the Home Page of the App.</h1>
-						<Footer/>
-					</div>
 			);
 	}
 }

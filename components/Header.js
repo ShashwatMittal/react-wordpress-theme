@@ -10,25 +10,30 @@ class Header extends React.Component{
     super(props);
     props.actions.fetchMenu('primary');
   }
+
   render() {
-
     let PrimaryMenu;
-    if(this.props.receiveMenu.menu !== undefined){
-      PrimaryMenu =
-      <ul>
-        {this.props.receiveMenu.menu.map((menuItem) =>
-          <li key={menuItem.object_id}>
-          <Link to={'/wpReactTheme/'+menuItem.object+'/'+menuItem.object_id}>{menuItem.title}</Link>
-          </li>)}
-      </ul>
-    }
-
+    const {menu} = this.props.receiveMenu
+    const{isLoading} = menu
     return (
       <div>
-        <h2>Primary Menu</h2>
-        <hr />
-        {PrimaryMenu}
-        </div>
+        {isLoading ? <h3>Fetching Menu...</h3> : <ul>
+          {menu.map(function(menuItem){
+            if(menuItem.object == 'post'){
+              return <li key={menuItem.object_id}><Link to={'/wpReactTheme/archive/'+menuItem.object_id}>{menuItem.title}</Link></li>
+            }
+            if(menuItem.object == 'page'){
+              return <li key={menuItem.object_id}><Link to={'wpReactTheme/posts/'+menuItem.object_id}>{menuItem.title}</Link></li>
+            }
+            if(menuItem.object == 'custom'){
+              return <li key={menuItem.object_id}><a href={menuItem.url}>{menuItem.title}</a></li>
+            }
+            if(menuItem.object == 'category'){
+              return <li key={menuItem.object_id}><Link to={'wpReactTheme/category/'+menuItem.object_id}>{menuItem.title}</Link></li>
+            }
+        })}
+        </ul>}
+      </div>
     );
   }
 }
