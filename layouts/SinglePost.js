@@ -10,6 +10,10 @@ class SinglePost extends Component{
     const {fetchPost} = this.props.actions
     fetchPost(params.id);
   }
+  componentWillReceiveProps(nextProps){
+    const {isLoading, post} = nextProps.post
+    const {author} = post
+  }
   render(){
     const { isLoading } = this.props.post
     return(
@@ -22,9 +26,9 @@ class SinglePost extends Component{
 }
 
 function mapStateToProps(state) {
-  const { receivePost } = state
+  const { receivePost, receiveUser } = state
   return{
-    post: receivePost
+    post: receivePost,
   }
 }
 
