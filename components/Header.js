@@ -23,7 +23,7 @@ class Header extends React.Component{
               return <li key={menuItem.object_id}><Link to={'/wpReactTheme/archive/'+menuItem.object_id}>{menuItem.title}</Link></li>
             }
             if(menuItem.object == 'page'){
-              return <li key={menuItem.object_id}><Link to={'wpReactTheme/posts/'+menuItem.object_id}>{menuItem.title}</Link></li>
+              return <li key={menuItem.object_id}><Link to={'/wpReactTheme/pages/'+menuItem.object_id}>{menuItem.title}</Link></li>
             }
             if(menuItem.object == 'custom'){
               return <li key={menuItem.object_id}><a href={menuItem.url}>{menuItem.title}</a></li>
