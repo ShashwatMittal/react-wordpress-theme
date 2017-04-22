@@ -41,8 +41,14 @@ add_action('wp_enqueue_scripts', enqueue_scripts);
 
 function blackhawk_setup(){
     register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'blackhawk' ),
-		'social'  => __( 'Social Links Menu', 'blackhawk' ),
-	) );
+  		'primary' => __( 'Primary Menu', 'blackhawk' ),
+  		'social'  => __( 'Social Links Menu', 'blackhawk' ),
+  	));
+
+    register_sidebar( array(
+      'name' => __('Sidebar', 'blackhawk'),
+      'description' => __('Enter your Description', 'blackhawk'),
+    ));
+
 }
 add_action('after_setup_theme',  blackhawk_setup);

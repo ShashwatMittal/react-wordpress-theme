@@ -16,6 +16,8 @@ import {
   REQUEST_MENU,
   REQUEST_USER,
   RECEIVE_USER,
+  REQUEST_SIDEBAR,
+  RECEIVE_SIDEBAR,
   TOTAL_PAGES_FOR_POSTS,
   TOTAL_PAGES_FOR_PAGES
 } from '../constants/constants';
@@ -188,5 +190,30 @@ export function fetchUser(userID){
     return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/users/'+userID)
     .then(response => response.json())
     .then(json => dispatch(receiveUser(json)));
+  }
+}
+
+//Actions for retrieving Sidebar widgets.
+function requestSidebar(sidebarName, loading){
+  return{
+    type: REQUEST_SIDEBAR,
+    sidebarName: sidebarName,
+    loading: loading
+  }
+}
+
+function receiveSidebar(json){
+  return{
+    type: RECEIVE_SIDEBAR,
+    sidebar: json
+  }
+}
+
+export function fetchSidebar(sidebarName){
+  return dispatch => {
+    dispatch(requestSidebar(sidebarName,true));
+    return fetch('http://abc.shashwatmittal.com/wp-json/wp-rest-api-sidebars/v1/sidebars/'+sidebarName)
+    .then(response => response.json())
+    .then(json => dispatch(receiveSidebar(json)));
   }
 }

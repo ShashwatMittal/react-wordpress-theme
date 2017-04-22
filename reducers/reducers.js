@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
 import {
-  RECEIVE_POSTS, RECEIVE_POST, REQUEST_POST, REQUEST_POSTS, REQUEST_PAGES, RECEIVE_PAGES,RECEIVE_PAGE,REQUEST_PAGE,REQUEST_USER,RECEIVE_USER,
-  GET_TAGS, GET_CATEGORIES, SET_VISIBILITY_FILTER, REQUEST_MENU, RECEIVE_MENU, TOTAL_PAGES_FOR_POSTS, TOTAL_PAGES_FOR_PAGES
+  RECEIVE_POSTS, RECEIVE_POST, REQUEST_POST, REQUEST_POSTS, REQUEST_PAGES, RECEIVE_PAGES,
+  RECEIVE_PAGE, REQUEST_PAGE, REQUEST_USER, RECEIVE_USER, RECEIVE_SIDEBAR, REQUEST_SIDEBAR,
+  GET_TAGS, GET_CATEGORIES, SET_VISIBILITY_FILTER, REQUEST_MENU, RECEIVE_MENU, TOTAL_PAGES_FOR_POSTS,
+  TOTAL_PAGES_FOR_PAGES
 } from '../constants/constants';
 
 function receivePosts(state = {posts:[], isLoading: true, currentPage: 0, noOfPages: 0}, action){
@@ -115,13 +117,30 @@ function receiveUser(state = {user:[], isLoading: true, userID: 0}, action){
   }
 }
 
+function receiveSidebar(state = {sidebar:[], isLoading:true}, action){
+  switch (action.type) {
+    case REQUEST_SIDEBAR:
+    return Object.assign({}, state, {
+              isLoading: action.loading,
+              sidebarName: action.sidebarName
+    });
+    case RECEIVE_SIDEBAR:
+    return Object.assign({}, state, {
+              sidebar: action.sidebar,
+              isLoading: false
+    })
+    default:
+    return state;
+  }
+}
 const reducer = combineReducers({
   receivePosts,
   receivePost,
   receivePages,
   receivePage,
   receiveMenu,
-  receiveUser
+  receiveUser,
+  receiveSidebar
 });
 
 export default reducer;
