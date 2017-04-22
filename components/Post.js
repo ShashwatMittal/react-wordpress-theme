@@ -14,11 +14,13 @@ componentWillMount(){
 }
 
   render() {
-    const {title, content} = this.props.post
+    const {title, content, date} = this.props.post
+    let publish = date.split("T", 2);
     return(
       <div>
         <h1>{title.rendered}</h1>
         {renderHTML(content.rendered)}
+        <p>Publish Date: {publish['0']} & Time: {publish['1']}</p>
         {this.props.user.isLoading ? <h2>Fetching Author...</h2> : <User {...this.props.user}/> }
       </div>
     );

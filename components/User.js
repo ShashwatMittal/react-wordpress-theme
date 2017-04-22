@@ -6,7 +6,7 @@ class User extends Component{
       const{name, avatar_urls} = this.props.user
     return(
       <div>
-        <h3>{name}</h3>
+        <h3>Author: {name}</h3>
         <img src={avatar_urls['96']}/>
       </div>
     );
