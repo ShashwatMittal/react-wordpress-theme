@@ -4,6 +4,8 @@ import PostList from '../components/PostList';
 import {bindActionCreators} from 'redux';
 import * as Actions from '../actions/actions';
 import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+import Footer from '../components/Footer';
 import Pagination from '../components/componentParts/Pagination';
 class Archive extends React.Component{
 	constructor(props){
@@ -30,6 +32,8 @@ class Archive extends React.Component{
 				<h1>Archive Page Heading</h1>
 				{isLoading ? <h2>Fetching...</h2> : <PostList {...receivePosts}/> }
 				<Pagination currentPage={currentPage} noOfPages={noOfPages} path={path}/>
+				<Sidebar/>
+				<Footer/>
 			</div>
 		);
 	}

@@ -47,7 +47,7 @@ function blackhawk_setup(){
 
     register_sidebar( array(
       'name' => __('Sidebar', 'blackhawk'),
-      'description' => __('Enter your Description', 'blackhawk'),
+      'description' => __('Sidebar to Display all the Widgets', 'blackhawk'),
     ));
 
 }

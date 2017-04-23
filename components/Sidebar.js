@@ -10,9 +10,7 @@ class Sidebar extends React.Component{
 		const {fetchSidebar} = this.props.actions
 		fetchSidebar('sidebar-1');
 	}
-	componentWillReceiveProps(nextProps){
-		console.log(nextProps);
-	}
+
 	render() {
 		const{sidebar, isLoading} = this.props.sidebar
 		return(

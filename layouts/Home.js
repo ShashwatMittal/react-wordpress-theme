@@ -7,11 +7,15 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 class Home extends Component{
 	render() {
-		console.log(phpData.constants);
+		if(phpData.constants.FRONT_PAGE !== '0'){
+		}
+		else{
+		}
 	    return(
 				<div>
 						<Header/>
 						<Sidebar/>
+						<Footer/>
 				</div>
 			);
 	}
