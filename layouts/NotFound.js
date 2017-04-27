@@ -11,7 +11,7 @@ export default class Error extends React.Component {
 	      <div className = "page-content" >
 	      <p>Looks like there does not exist anything at this URL.</p>
         </div>
-        <Link to='/wpReactTheme/'>Lets Take You Back</Link>
+        <Link to='/'>Go to Home</Link>
 	     </section>
 	  );
   }

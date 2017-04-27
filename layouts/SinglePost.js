@@ -5,20 +5,24 @@ import * as Actions from '../actions/actions';
 import {bindActionCreators} from 'redux';
 
 class SinglePost extends Component{
-  componentWillMount(){
-    const {params} = this.props.match;
-    const {fetchPost} = this.props.actions
+  constructor(props){
+    super(props);
+    const {fetchPost} = props.actions
+    const {params} = props.match
     fetchPost(params.id);
   }
   componentWillReceiveProps(nextProps){
-    const {isLoading, post} = nextProps.post
-    const {author} = post
+    if(this.props.match.params.id !== nextProps.match.params.id){
+      const {fetchPost} = nextProps.actions
+      const {params} = nextProps.match
+      fetchPost(params.id)
+    }
   }
+
   render(){
     const { isLoading } = this.props.post
     return(
       <div>
-      Hello
       {isLoading ? <h2>Fetching Post...</h2> : <Post {...this.props.post}/>}
       </div>
     );
@@ -26,7 +30,7 @@ class SinglePost extends Component{
 }
 
 function mapStateToProps(state) {
-  const { receivePost, receiveUser } = state
+  const { receivePost} = state
   return{
     post: receivePost,
   }

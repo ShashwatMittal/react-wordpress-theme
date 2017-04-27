@@ -15,9 +15,9 @@ class Archive extends React.Component{
 		fetchPosts(params.page)
 	}
 	componentWillReceiveProps(nextProps){
-		const {fetchPosts} = nextProps.actions
-		const {page} = nextProps.match.params
 		if(this.props.match.params.page !== nextProps.match.params.page){
+			const {fetchPosts} = nextProps.actions
+			const {page} = nextProps.match.params
 			fetchPosts(page)
 		}
 	}
@@ -25,15 +25,12 @@ class Archive extends React.Component{
 	render(){
 		const {receivePosts} = this.props;
 		const {path} = this.props.match;
+		console.log(path);
 		const {currentPage, noOfPages, isLoading} = receivePosts;
 		return(
 			<div>
-				<Header />
-				<h1>Archive Page Heading</h1>
 				{isLoading ? <h2>Fetching...</h2> : <PostList {...receivePosts}/> }
-				<Pagination currentPage={currentPage} noOfPages={noOfPages} path={path}/>
-				<Sidebar/>
-				<Footer/>
+				{isLoading ? null : <Pagination currentPage={currentPage} noOfPages={noOfPages} path={path}/>}
 			</div>
 		);
 	}

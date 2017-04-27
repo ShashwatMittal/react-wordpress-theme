@@ -13,26 +13,49 @@ class Header extends React.Component{
   render() {
     let PrimaryMenu;
     const {menu} = this.props.receiveMenu
-    const{isLoading} = menu
+    const {isLoading} = menu
     return (
-      <div>
-        {isLoading ? <h3>Fetching Menu...</h3> : <ul>
-          {menu.map(function(menuItem){
-            if(menuItem.object == 'post'){
-              return <li key={menuItem.object_id}><Link to={'/wpReactTheme/archive/'+menuItem.object_id}>{menuItem.title}</Link></li>
-            }
-            if(menuItem.object == 'page'){
-              return <li key={menuItem.object_id}><Link to={'/wpReactTheme/pages/'+menuItem.object_id}>{menuItem.title}</Link></li>
-            }
-            if(menuItem.object == 'custom'){
-              return <li key={menuItem.object_id}><a href={menuItem.url}>{menuItem.title}</a></li>
-            }
-            if(menuItem.object == 'category'){
-              return <li key={menuItem.object_id}><Link to={'wpReactTheme/category/'+menuItem.object_id}>{menuItem.title}</Link></li>
-            }
-        })}
-        </ul>}
-      </div>
+      <header id='masthead' className='site-header'>
+        <div className='custom-header jumbotron'>
+          <div className='site-branding'>
+            <div className='wrap'>
+              <div className='site-branding-text text-center'>
+                <h1 className='site-title'>
+                  <Link to='/'>{phpData.constants.SITE_TITLE}</Link>
+                </h1>
+                <p className='site-description'>{phpData.constants.SITE_DESCRIPTION}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {isLoading ? <h2>Fetching Menu...</h2> :
+          <div className='navigation-top'>
+            <div className='wrap'>
+              <nav id='site-navigation' className='navbar navbar-default' aria-label='Top Menu'>
+                <div className='container-fluid'>
+                  <ul id='top-menu' className='nav navbar-nav'>
+                    {menu.map(function(menuItem){
+                        if(menuItem.object == 'post'){
+                          return <li key={menuItem.object_id} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/archive/'+menuItem.object_id}>{menuItem.title}</Link></li>
+                        }
+                        if(menuItem.object == 'page'){
+                          return <li key={menuItem.object_id} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/'+menuItem.object_id}>{menuItem.title}</Link></li>
+                        }
+                        if(menuItem.object == 'custom'){
+                          return <li key={menuItem.object_id} id={'menu-item-'+menuItem.object_id} className='menu-item'><a href={menuItem.url}>{menuItem.title}</a></li>
+                        }
+                        if(menuItem.object == 'category'){
+                          return <li key={menuItem.object_id} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/category/'+menuItem.object_id}>{menuItem.title}</Link></li>
+                        }
+                      })
+                    }
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+        }
+      </header>
     );
   }
 }

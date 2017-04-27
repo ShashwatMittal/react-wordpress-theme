@@ -25,7 +25,6 @@ class Pages extends Component {
 		const {currentPage, noOfPages, isLoading} = pages;
 		return(
 			<div>
-				<h1>Pages Page Heading</h1>
 				{isLoading ? <h2>Fetching...</h2> : <PageList {...pages}/> }
 				<Pagination currentPage={currentPage} noOfPages={noOfPages} path={path}/>
 			</div>

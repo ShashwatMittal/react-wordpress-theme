@@ -7,14 +7,14 @@ import renderHTML from 'react-render-html'
 class Sidebar extends React.Component{
 	constructor(props){
 		super(props);
-		const {fetchSidebar} = this.props.actions
+		const {fetchSidebar} = props.actions
 		fetchSidebar('sidebar-1');
 	}
 
 	render() {
 		const{sidebar, isLoading} = this.props.sidebar
 		return(
-		<aside>
+		<aside id='secondary' className='widget-area col-xs-12 col-sm-12 col-md-4 col-lg-3'>
 		{isLoading ? <h1>Fetching Sidebar...</h1> : renderHTML(sidebar.rendered) }
 		</aside>
 		);

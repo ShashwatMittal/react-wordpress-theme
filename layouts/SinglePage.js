@@ -5,11 +5,21 @@ import {connect} from 'react-redux';
 import Page from '../components/Page';
 
 class SinglePage extends Component{
-  componentWillMount(){
-    const {fetchPage} = this.props.actions
-    const {params} = this.props.match
+  constructor(props){
+    super(props);
+    const {fetchPage} = props.actions
+    const {params} = props.match
+    console.log(props);
     fetchPage(params.id)
   }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.match.params.id !== nextProps.match.params.id){
+      const {fetchPage} = nextProps.actions
+      fetchPage(nextProps.match.params.id)
+    }
+  }
+
   render(){
     const{page, isLoading} = this.props.page
     return(

@@ -7,7 +7,7 @@
  */
 
 function enqueue_scripts(){
-    wp_register_script('react_theme' , 'http://localhost:8080/index.js', array(), '1.0.0', true);
+    wp_register_script('react_theme' , 'http://localhost:8080/index.js', array(), NULL , true);
     $translation_array = array(
         'errorPage' => array(
                     'title' => __( 'Oops! That page can\'t be found.', 'blackhawk' ),
@@ -26,6 +26,7 @@ function enqueue_scripts(){
             'SITE_URL' => get_bloginfo('url'),
             'WP_VERSION' => get_bloginfo('version'),
             'API' => '/wp-json/wp/v2/',
+            'CUSTOM_MENU_API' => '/wp-json/wp-api-menus/v2/',
             'POSTS_PER_PAGE' => get_option('posts_per_page'),
             'MENUS_API' => 'wp-json/wp-api-menus',
             'PERMALINK_STRUCTURE' => get_option('permalink_structure'),
@@ -48,6 +49,8 @@ function blackhawk_setup(){
     register_sidebar( array(
       'name' => __('Sidebar', 'blackhawk'),
       'description' => __('Sidebar to Display all the Widgets', 'blackhawk'),
+      'before_widget' => '<section id="%1$s" class="widget %2$s clearfix">',
+      'after_widget' => '</section>'
     ));
 
 }

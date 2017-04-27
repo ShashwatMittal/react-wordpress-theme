@@ -14,15 +14,24 @@ componentWillMount(){
 }
 
   render() {
-    const {title, content, date} = this.props.post
+    const {title, content, date, id} = this.props.post
     let publish = date.split("T", 2);
     return(
-      <div>
-        <h1>{title.rendered}</h1>
-        {renderHTML(content.rendered)}
-        <p>Publish Date: {publish['0']} & Time: {publish['1']}</p>
-        {this.props.user.isLoading ? <h2>Fetching Author...</h2> : <User {...this.props.user}/> }
-      </div>
+      <article id={'post-'+id} className={'post post-type post-'+id}>
+        <header className='entry-header'>
+          <div className='entry-meta'>
+            <span className='posted-on'>
+              <span className='screen-reader-text'>Posted on</span>
+              <time className='entry-date' dateTime={date}>{publish['0']}</time>
+            </span>
+            <span className='byline'>
+            {this.props.user.isLoading ? <h2>Fetching Author...</h2> : <User {...this.props.user}/> }
+            </span>
+          </div>
+          <h1 className='entry-title'>{title.rendered}</h1>
+          {renderHTML(content.rendered)}
+        </header>
+      </article>
     );
   }
 }

@@ -8,9 +8,11 @@ class PageList extends Component{
     return(
       <div>
         {pages.map((page)=>
-            <article key={page.id}>
-            <header>
-              <Link to={'/wpReactTheme/pages/'+page.id}>{page.title.rendered}</Link>
+            <article key={page.id} id={'page-'+page.id} className='page'>
+            <header className='entry-header'>
+              <h2 className='entry-title'>
+                <Link to={'/'+page.id}>{page.title.rendered}</Link>
+              </h2>
             </header>
             <div className='entry-content'>
               {renderHTML(page.excerpt.rendered ? page.excerpt.rendered : "<p>No content Found</p>")}

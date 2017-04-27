@@ -5,12 +5,17 @@ class PostList extends Component {
 
   render () {
     const {posts} = this.props
+    console.log(posts);
     return (
       <div>{posts.map((post) =>
-        <article key={post.id}>
-          <header>
-            <h2>
-              <Link to={'/wpReactTheme/archive/'+post.id}>
+        <article key={post.id} id={'post-'+post.id} className='post'>
+          <header className='entry-header'>
+          <div className='entry-meta'>
+            <span className='screen-reader-text'>Posted on</span>
+            <time className='entry-date' dateTime={post.date}>{post.date.split("T", 1)}</time>
+          </div>
+            <h2 className='entry-title'>
+              <Link to={'/archive/'+post.id}>
                 {post.title.rendered}
               </Link>
             </h2>

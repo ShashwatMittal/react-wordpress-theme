@@ -19,3 +19,176 @@ Use it to make something cool, have fun, and share what you've learned with othe
  * Normalizing styles have been helped along thanks to the fine work of
  * Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
  */
+
+ /*--------------------------------------------------------------
+ >>> TABLE OF CONTENTS:
+ ----------------------------------------------------------------
+ 1.0 Normalize
+ 2.0 Accessibility
+ 3.0 Alignments
+ 4.0 Clearings
+ 5.0 Typography
+ 6.0 Forms
+ 7.0 Formatting
+ 8.0 Lists
+ 9.0 Tables
+ 10.0 Links
+ 11.0 Featured Image Hover
+ 12.0 Navigation
+ 13.0 Layout
+    13.1 Header
+    13.2 Front Page
+    13.3 Regular Content
+    13.4 Posts
+    13.5 Pages
+    13.6 Footer
+ 14.0 Comments
+ 15.0 Widgets
+ 16.0 Media
+    16.1 Galleries
+ 17.0 Customizer
+ 18.0 SVGs Fallbacks
+ 19.0 Media Queries
+ 20.0 Print
+ --------------------------------------------------------------*/
+
+ /*--------------------------------------------------------------
+ 1.0 Normalize
+ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
+ --------------------------------------------------------------*/
+ /* Text meant only for screen readers. */
+
+ .screen-reader-text {
+ 	clip: rect(1px, 1px, 1px, 1px);
+ 	height: 1px;
+ 	overflow: hidden;
+ 	position: absolute !important;
+ 	width: 1px;
+ 	word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
+ }
+
+ .screen-reader-text:focus {
+ 	background-color: #f1f1f1;
+ 	-webkit-border-radius: 3px;
+ 	border-radius: 3px;
+ 	-webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+ 	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+ 	clip: auto !important;
+ 	color: #21759b;
+ 	display: block;
+ 	font-size: 14px;
+ 	font-size: 0.875rem;
+ 	font-weight: 700;
+ 	height: auto;
+ 	left: 5px;
+ 	line-height: normal;
+ 	padding: 15px 23px 14px;
+ 	text-decoration: none;
+ 	top: 5px;
+ 	width: auto;
+ 	z-index: 100000; /* Above WP toolbar. */
+ }
+
+.widget ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.widget ul li{
+  text-transform: capitalize;
+  border-bottom: 1px solid #EEE;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.widget.widget_tag_cloud a{
+  border: 1px solid #ddd;
+  border-radius: 6px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	display: inline-block;
+	float: left;
+	font-size: 12px !important; /* !important to overwrite inline styles */
+	margin: 4px 4px 0 0 !important;
+	padding: 4px 10px 5px !important;
+	position: relative;
+	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
+	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
+	width: auto;
+	word-wrap: break-word;
+	z-index: 0;
+}
+
+.page-numbers{
+  padding: 5px 0;
+}
+.pagination{
+  position: relative;
+  min-width: 100%;
+}
+/*Styling for Post List*/
+article.post .entry-title{
+  position: relative;
+  margin: 5px 0px;
+  font-size: 26px;
+}
+
+article.post .entry-meta{
+  color: #999;
+  font-weight: 700;
+}
+article.post,
+article.page{
+  padding-bottom: 50px;
+}
+
+article.post-type p,
+article.page-type-page p{
+  font-size: 17px;
+  line-height: 27px;
+}
+
+article.post-type .entry-title,
+article.page-type-page .entry-title{
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+.widgettitle{
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.site-footer {
+  background: #EEE;
+  margin-top: 20px;
+  padding: 20px 0 20px 0;
+  -webkit-border-radius: 3px;
+ 	border-radius: 3px;
+}
+
+img {
+  max-width:100%;
+  max-height: 100%;
+}
+
+.authorName{
+  text-transform: uppercase;
+}
+
+.categories ul li{
+  padding: 10px 0;
+  font-size: 30px;
+}
+
+.categories ul{
+  list-style: none;
+  padding: 0;
+  text-transform: capitalize;
+}
+
+.categories .entry-title{
+  font-weight: bold;
+}

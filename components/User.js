@@ -5,10 +5,8 @@ class User extends Component{
   render(){
       const{name, avatar_urls} = this.props.user
     return(
-      <div>
-        <h3>Author: {name}</h3>
-        <img src={avatar_urls['96']}/>
-      </div>
+        <span className='authorName'>{' By: '+name+' '}<img src={avatar_urls['24']} className='img-rounded'/>
+        </span>
     );
   }
 }
