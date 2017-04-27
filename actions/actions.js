@@ -5,7 +5,8 @@ import {
   REQUEST_USER, RECEIVE_USER, REQUEST_SIDEBAR, RECEIVE_SIDEBAR,
   REQUEST_CATEGORIES, RECEIVE_CATEGORIES, RECEIVE_MENU, REQUEST_MENU,
   POSTS_PER_PAGE, TOTAL_PAGES_FOR_POSTS, TOTAL_PAGES_FOR_PAGES,
-  REQUEST_API, WP_SITE_URL, WP_API, CUSTOM_MENU_API, TOTAL_PAGES_FOR_CATEGORIES
+  REQUEST_API, WP_SITE_URL, WP_API, CUSTOM_MENU_API, TOTAL_PAGES_FOR_CATEGORIES,
+  REQUEST_POST_FOR_CATEGORY, RECEIVE_POSTS_FOR_CATEGORY, TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY
 } from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 
@@ -57,10 +58,10 @@ function receivePosts(pageNum, json){
   }
 }
 
-function noOfPagesforPosts(number){
+function noOfPagesforPosts(totalPages){
   return{
     type: TOTAL_PAGES_FOR_POSTS,
-    noOfPages: number
+    noOfPages: totalPages
   }
 }
 
@@ -103,10 +104,10 @@ function receivePages(pages, json){
   }
 }
 
-function noOfPagesforPages(number){
+function noOfPagesforPages(totalPages){
   return{
     type: TOTAL_PAGES_FOR_PAGES,
-    noOfPages: number
+    noOfPages: totalPages
   }
 }
 
@@ -248,10 +249,10 @@ function receiveCategories(json){
   }
 }
 
-function noOfPagesforCategories(number){
+function noOfPagesforCategories(totalPages){
   return{
     type: TOTAL_PAGES_FOR_CATEGORIES,
-    noOfPages: number
+    noOfPages: totalPages
   }
 }
 
@@ -264,5 +265,41 @@ export function fetchCategories(currentPage){
       return response.json();
     })
     .then(json => dispatch(receiveCategories(json)));
+  }
+}
+
+// Actions to fetch Posts for a Specific Category
+function requestPostsForCategory(category, currentPage, loading){
+  return{
+    type: REQUEST_POST_FOR_CATEGORY,
+    category: category,
+    loading: loading,
+    currentPage: currentPage
+  }
+}
+
+function noOfPagesforPostsForCategory(totalPages){
+  return{
+    type: TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY,
+    noOfPages: totalPages
+  }
+}
+
+function receivePostsForCategory(json){
+  return{
+    type: RECEIVE_POSTS_FOR_CATEGORY,
+    posts: json
+  }
+}
+
+export function fetchPostsForCategory(category, currentPage){
+  return dispatch => {
+    dispatch(requestPostsForCategory(category, currentPage, true));
+    return fetch(WP_SITE_URL+WP_API+'posts?category='+category+'&page='+currentPage+'&per_page='+POSTS_PER_PAGE)
+    .then(function(response){
+      dispatch(noOfPagesforPostsForCategory(response.headers.get('X-WP-TotalPages')));
+      return response.json();
+    })
+    .then(json => dispatch(receivePostsForCategory(json)));
   }
 }

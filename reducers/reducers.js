@@ -3,7 +3,7 @@ import {
   RECEIVE_POSTS, RECEIVE_POST, REQUEST_POST, REQUEST_POSTS, REQUEST_PAGES, RECEIVE_PAGES,
   RECEIVE_PAGE, REQUEST_PAGE, REQUEST_USER, RECEIVE_USER, RECEIVE_SIDEBAR, REQUEST_SIDEBAR,
   REQUEST_MENU, RECEIVE_MENU, TOTAL_PAGES_FOR_POSTS, TOTAL_PAGES_FOR_PAGES, REQUEST_CATEGORIES,
-  RECEIVE_CATEGORIES, TOTAL_PAGES_FOR_CATEGORIES
+  RECEIVE_CATEGORIES, TOTAL_PAGES_FOR_CATEGORIES, REQUEST_POST_FOR_CATEGORY, RECEIVE_POSTS_FOR_CATEGORY, TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY
 } from '../constants/constants';
 
 function receivePosts(state = {posts:[], isLoading: true, currentPage: 0, noOfPages: 0}, action){
@@ -155,6 +155,29 @@ function receiveCategories(state = {categories: [], isLoading: true}, action){
 
   }
 }
+
+function receivePostsForCategory(state = {category: '', posts: [], isLoading: true}, action){
+  switch (action.type) {
+    case REQUEST_POST_FOR_CATEGORY:
+      return Object.assign({}, state, {
+        category: action.category,
+        isLoading: action.loading,
+        currentPage: action.currentPage
+      });
+    case RECEIVE_POSTS_FOR_CATEGORY:
+      return Object.assign({}, state, {
+        isLoading: false,
+        posts: action.posts
+      });
+    case TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY:
+      return Object.assign({}, state, {
+        noOfPages: action.noOfPages
+      });
+    default:
+      return state;
+  }
+}
+
 const reducer = combineReducers({
   receivePosts,
   receivePost,
@@ -163,7 +186,8 @@ const reducer = combineReducers({
   receiveMenu,
   receiveUser,
   receiveSidebar,
-  receiveCategories
+  receiveCategories,
+  receivePostsForCategory
 });
 
 export default reducer;
