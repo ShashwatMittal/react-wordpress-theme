@@ -36,9 +36,18 @@ function receivePost(json){
 export function fetchPost(id){
   return dispatch => {
     dispatch(requestPost(id, true));
-    return fetch(WP_SITE_URL+WP_API+'posts/'+id)
-      .then(response => response.json())
-      .then(json => dispatch(receivePost(json)));
+    if(localStorage.getItem('post-'+id)){
+      dispatch(receivePost(JSON.parse(localStorage.getItem('post-'+id))));
+    }
+    else{
+      return fetch(WP_SITE_URL+WP_API+'posts/'+id)
+        .then(response => response.json())
+        .then(function(json){
+          dispatch(receivePost(json));
+          localStorage.setItem('post-'+id, JSON.stringify(json));
+          localStorage.setItem('post-'+id+'-lastModified', json.modified);
+      });
+    }
   }
 }
 
@@ -68,23 +77,21 @@ function noOfPagesforPosts(totalPages){
 export function fetchPosts(currentPage){
   return dispatch => {
     dispatch(requestPosts(currentPage, true));
-    if(localStorage.getItem('post-page-'+currentPage) !== null){
-      if(localStorage.getItem('wp-post-totalpages') !== null){
-        dispatch(noOfPagesforPosts(localStorage.getItem('wp-post-totalpages')));
-      }
-      return dispatch(receivePosts(currentPage, JSON.parse(localStorage.getItem('post-page-'+currentPage))));
-    }
     return fetch(WP_SITE_URL+WP_API+'posts?per_page='+POSTS_PER_PAGE+'&page='+currentPage)
-      .then(function(response){
-        dispatch(noOfPagesforPosts(response.headers.get('X-WP-TotalPages')));
-        localStorage.setItem('wp-post-totalpages', response.headers.get('X-WP-TotalPages'));
-        return response.json();
-      })
-      .then(function(json){
-        dispatch(receivePosts(currentPage, json));
-        localStorage.setItem('post-page-'+currentPage,JSON.stringify(json));
+    .then(function(response){
+      dispatch(noOfPagesforPosts(response.headers.get('X-WP-TotalPages')));
+      return response.json();
+    })
+    .then(json => {
+      dispatch(receivePosts(currentPage, json));
+      json.map((post) => {
+        if(post.modified !== localStorage.getItem('post-'+post.id+'-lastModified')){
+          localStorage.removeItem('post-'+post.id);
+        }else{
+          console.log('Some Error');
+        }
       });
-
+    });
   }
 }
 
@@ -114,21 +121,22 @@ function noOfPagesforPages(totalPages){
 export function fetchPages(currentPage){
   return dispatch => {
     dispatch(requestPages(currentPage, true));
-    if(localStorage.getItem('page-page-'+currentPage) !== null){
-      if(localStorage.getItem('wp-page-totalpages') !== null){
-        dispatch(noOfPagesforPages(localStorage.getItem('wp-page-totalpages')));
-      }
-      return dispatch(receivePages(currentPage, JSON.parse(localStorage.getItem('page-page-'+currentPage))));
-    }
     return fetch(WP_SITE_URL+WP_API+'pages?per_page='+POSTS_PER_PAGE+'&page='+currentPage)
     .then(function(response){
       dispatch(noOfPagesforPages(response.headers.get('X-WP-TotalPages')));
-      localStorage.setItem('wp-page-totalpages', response.headers.get('X-WP-TotalPages'));
       return response.json();
     })
-    .then(function(json){
-      dispatch(receivePages(currentPage, json));
-      localStorage.setItem('page-page-'+currentPage,JSON.stringify(json));
+    .then((json) => {
+       dispatch(receivePages(currentPage, json));
+       json.map((page) => {
+         console.log(page.modified);
+         console.log(localStorage.getItem('page-'+page.id+'-lastModified'));
+         if(page.modified !== localStorage.getItem('page-'+page.id+'-lastModified')){
+           localStorage.removeItem('page-'+page.id);
+         }else{
+           console.log('Some Error');
+         }
+       });
     });
   }
 }
@@ -152,12 +160,20 @@ function receivePage(json){
 export function fetchPage(id){
   return dispatch => {
     dispatch(requestPage(id, true));
+    if(localStorage.getItem('page-'+id)){
+      dispatch(receivePage(JSON.parse(localStorage.getItem('page-'+id))));
+    }
+    else{
     return fetch(WP_SITE_URL+WP_API+'pages/'+id)
     .then(response => response.json())
-    .then(json => dispatch(receivePage(json)));
+    .then(function(json){
+      dispatch(receivePage(json));
+      localStorage.setItem('page-'+id, JSON.stringify(json));
+      localStorage.setItem('page-'+id+'-lastModified', json.modified);
+      });
+    }
   }
 }
-
 // Actions for retrieving Primary Menu.
 function requestMenu(loading){
   return{
@@ -261,6 +277,7 @@ export function fetchCategories(currentPage){
     dispatch(requestCategories(currentPage, true));
     return fetch(WP_SITE_URL+WP_API+'categories?page='+currentPage)
     .then(function(response){
+      console.log(response);
       dispatch(noOfPagesforCategories(response.headers.get('X-WP-TotalPages')));
       return response.json();
     })
