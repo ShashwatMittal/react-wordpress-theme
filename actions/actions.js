@@ -1,29 +1,22 @@
 /*phpData Global Variable providing WordPress data.*/
 import {
-  RECEIVE_POSTS,
-  RECEIVE_POST,
-  REQUEST_POSTS,
-  REQUEST_POST,
-  RECEIVE_PAGES,
-  RECEIVE_PAGE,
-  REQUEST_PAGES,
-  REQUEST_PAGE,
-  POSTS_PER_PAGE,
-  GET_TAGS,
-  GET_CATEGORIES,
-  GET_SETTINGS,
-  RECEIVE_MENU,
-  REQUEST_MENU,
-  REQUEST_USER,
-  RECEIVE_USER,
-  REQUEST_SIDEBAR,
-  RECEIVE_SIDEBAR,
-  TOTAL_PAGES_FOR_POSTS,
-  TOTAL_PAGES_FOR_PAGES
+  RECEIVE_POSTS, RECEIVE_POST, REQUEST_POSTS, REQUEST_POST,
+  RECEIVE_PAGES, RECEIVE_PAGE, REQUEST_PAGES, REQUEST_PAGE,
+  REQUEST_USER, RECEIVE_USER, REQUEST_SIDEBAR, RECEIVE_SIDEBAR,
+  REQUEST_CATEGORIES, RECEIVE_CATEGORIES, RECEIVE_MENU, REQUEST_MENU,
+  POSTS_PER_PAGE, TOTAL_PAGES_FOR_POSTS, TOTAL_PAGES_FOR_PAGES,
+  REQUEST_API, WP_SITE_URL, WP_API, CUSTOM_MENU_API, TOTAL_PAGES_FOR_CATEGORIES
 } from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 
 // Actions for retrieving a Single Post.
+function requestAPI(loading){
+  return{
+    type: REQUEST_API,
+    loading: loading
+  }
+}
+
 function requestPost(id, loading){
   return{
     type: REQUEST_POST,
@@ -42,7 +35,7 @@ function receivePost(json){
 export function fetchPost(id){
   return dispatch => {
     dispatch(requestPost(id, true));
-    return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/posts/'+id)
+    return fetch(WP_SITE_URL+WP_API+'posts/'+id)
       .then(response => response.json())
       .then(json => dispatch(receivePost(json)));
   }
@@ -74,12 +67,23 @@ function noOfPagesforPosts(number){
 export function fetchPosts(currentPage){
   return dispatch => {
     dispatch(requestPosts(currentPage, true));
-    return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/posts?per_page='+POSTS_PER_PAGE+'&page='+currentPage)
+    if(localStorage.getItem('post-page-'+currentPage) !== null){
+      if(localStorage.getItem('wp-post-totalpages') !== null){
+        dispatch(noOfPagesforPosts(localStorage.getItem('wp-post-totalpages')));
+      }
+      return dispatch(receivePosts(currentPage, JSON.parse(localStorage.getItem('post-page-'+currentPage))));
+    }
+    return fetch(WP_SITE_URL+WP_API+'posts?per_page='+POSTS_PER_PAGE+'&page='+currentPage)
       .then(function(response){
         dispatch(noOfPagesforPosts(response.headers.get('X-WP-TotalPages')));
+        localStorage.setItem('wp-post-totalpages', response.headers.get('X-WP-TotalPages'));
         return response.json();
       })
-      .then(json => dispatch(receivePosts(currentPage, json)));
+      .then(function(json){
+        dispatch(receivePosts(currentPage, json));
+        localStorage.setItem('post-page-'+currentPage,JSON.stringify(json));
+      });
+
   }
 }
 
@@ -109,12 +113,22 @@ function noOfPagesforPages(number){
 export function fetchPages(currentPage){
   return dispatch => {
     dispatch(requestPages(currentPage, true));
-    return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/pages?per_page='+POSTS_PER_PAGE+'&page='+currentPage)
+    if(localStorage.getItem('page-page-'+currentPage) !== null){
+      if(localStorage.getItem('wp-page-totalpages') !== null){
+        dispatch(noOfPagesforPages(localStorage.getItem('wp-page-totalpages')));
+      }
+      return dispatch(receivePages(currentPage, JSON.parse(localStorage.getItem('page-page-'+currentPage))));
+    }
+    return fetch(WP_SITE_URL+WP_API+'pages?per_page='+POSTS_PER_PAGE+'&page='+currentPage)
     .then(function(response){
       dispatch(noOfPagesforPages(response.headers.get('X-WP-TotalPages')));
+      localStorage.setItem('wp-page-totalpages', response.headers.get('X-WP-TotalPages'));
       return response.json();
     })
-    .then(json => dispatch(receivePages(currentPage, json)));
+    .then(function(json){
+      dispatch(receivePages(currentPage, json));
+      localStorage.setItem('page-page-'+currentPage,JSON.stringify(json));
+    });
   }
 }
 
@@ -137,7 +151,7 @@ function receivePage(json){
 export function fetchPage(id){
   return dispatch => {
     dispatch(requestPage(id, true));
-    return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/pages/'+id)
+    return fetch(WP_SITE_URL+WP_API+'pages/'+id)
     .then(response => response.json())
     .then(json => dispatch(receivePage(json)));
   }
@@ -162,7 +176,7 @@ function receiveMenu (menuLocation, json){
 export function fetchMenu(menuLocation){
   return dispatch => {
     dispatch(requestMenu(true));
-    return fetch('http://abc.shashwatmittal.com/wp-json/wp-api-menus/v2/menu-locations/'+menuLocation)
+    return fetch(WP_SITE_URL+CUSTOM_MENU_API+'menu-locations/'+menuLocation)
     .then(response => response.json())
     .then(json => dispatch(receiveMenu(menuLocation, json)));
   }
@@ -187,7 +201,7 @@ function receiveUser(json){
 export function fetchUser(userID){
   return dispatch => {
     dispatch(requestUser(userID, true));
-    return fetch('http://abc.shashwatmittal.com/wp-json/wp/v2/users/'+userID)
+    return fetch(WP_SITE_URL+WP_API+'users/'+userID)
     .then(response => response.json())
     .then(json => dispatch(receiveUser(json)));
   }
@@ -211,9 +225,44 @@ function receiveSidebar(json){
 
 export function fetchSidebar(sidebarName){
   return dispatch => {
-    dispatch(requestSidebar(sidebarName,true));
-    return fetch('http://abc.shashwatmittal.com/wp-json/wp-rest-api-sidebars/v1/sidebars/'+sidebarName)
+    dispatch(requestSidebar(sidebarName, true));
+    return fetch(WP_SITE_URL+'/wp-json/wp-rest-api-sidebars/v1/sidebars/'+sidebarName)
     .then(response => response.json())
     .then(json => dispatch(receiveSidebar(json)));
+  }
+}
+
+// Actions for Retrieving Categories.
+function requestCategories(currentPage, loading){
+  return{
+    type: REQUEST_CATEGORIES,
+    currentPage: currentPage,
+    loading: loading
+  }
+}
+
+function receiveCategories(json){
+  return{
+    type: RECEIVE_CATEGORIES,
+    categories: json
+  }
+}
+
+function noOfPagesforCategories(number){
+  return{
+    type: TOTAL_PAGES_FOR_CATEGORIES,
+    noOfPages: number
+  }
+}
+
+export function fetchCategories(currentPage){
+  return dispatch => {
+    dispatch(requestCategories(currentPage, true));
+    return fetch(WP_SITE_URL+WP_API+'categories?page='+currentPage)
+    .then(function(response){
+      dispatch(noOfPagesforCategories(response.headers.get('X-WP-TotalPages')));
+      return response.json();
+    })
+    .then(json => dispatch(receiveCategories(json)));
   }
 }
