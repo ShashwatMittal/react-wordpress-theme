@@ -156,7 +156,7 @@ function receiveCategories(state = {categories: [], isLoading: true}, action){
   }
 }
 
-function receivePostsForCategory(state = {category: '', posts: [], isLoading: true}, action){
+function receivePostsForCategory(state = {category: '', posts: [], isLoading: true, currentPage: 1}, action){
   switch (action.type) {
     case REQUEST_POST_FOR_CATEGORY:
       return Object.assign({}, state, {

@@ -24,8 +24,8 @@ class Archive extends React.Component{
 
 	render(){
 		const {receivePosts} = this.props;
+		console.log(receivePosts);
 		const {path} = this.props.match;
-		console.log(path);
 		const {currentPage, noOfPages, isLoading} = receivePosts;
 		return(
 			<div>
