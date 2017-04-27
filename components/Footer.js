@@ -6,10 +6,10 @@ class Footer extends React.Component{
 	    return(
   	    <footer id='colophon' className='site-footer text-center' role='contentinfo'>
           <div className='site-map'>
-          <Link to='/'>Home</Link>
-          <Link to='/archive/page/1'>Archives</Link>
-          <Link to='/pages/page/1'>Pages</Link>
-          <Link to='/category/page/1'>Categories</Link>
+          <Link to='/' className='footer-link'>Home</Link><span> | </span>
+          <Link to='/archive/page/1' className='footer-link'>Archives</Link><span> | </span>
+          <Link to='/pages/page/1' className='footer-link'>Pages</Link><span> | </span>
+          <Link to='/category/page/1' className='footer-link'>Categories</Link>
           </div>
   		    <div className='site-info'>
   		    <a href='https://wordpress.org/'>Proudly powered by WordPress</a>
