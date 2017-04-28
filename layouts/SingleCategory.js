@@ -3,29 +3,31 @@ import {connect} from 'react-redux';
 import * as Actions from '../actions/actions'
 import {bindActionCreators} from 'redux';
 import PostList from '../components/PostList';
+import Pagination from '../components/componentParts/Pagination'
 
 class SingleCategory extends Component{
   constructor(props){
     super(props);
-
     const {fetchPostsForCategory} = props.action
     const {params} = props.match
-    const {currentPage, category} = props.receivePostsForCategory
-    console.log(props);
-    if(params.page){
-      fetchPostsForCategory(props.match.params.slug, params.page)
-    }
-    else{
-      fetchPostsForCategory(props.match.params.slug, currentPage)
+    fetchPostsForCategory(props.match.params.id, params.page)
+  }
+  componentWillReceiveProps(nextProps){
+    if(this.props.match.params.page !== nextProps.match.params.page){
+      const {fetchPostsForCategory} = nextProps.action
+      const {params} = nextProps.match
+      fetchPostsForCategory(nextProps.match.params.id, params.page)
     }
   }
-
   render(){
-    const {posts, isLoading, category} = this.props.receivePostsForCategory
+    const {receivePostsForCategory} = this.props
+    const {url} = this.props.match
+    const {posts, isLoading, currentPage, noOfPages} = receivePostsForCategory
     return(
       <div>
-      <h1>Category: {category}</h1>
-      {isLoading ? <h1>Fetching Posts</h1>: <h1>Fetched Posts</h1> }
+        {isLoading ? <h1>Fetching Posts</h1>: <PostList posts ={posts}/> }
+        {isLoading ? null : <Pagination currentPage={currentPage} noOfPages={noOfPages} url={url}/>}
+
       </div>
     );
   }
