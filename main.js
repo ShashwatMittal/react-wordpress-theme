@@ -46,8 +46,7 @@ ReactDOM.render(
                   <Route exact path='/archive/:id' component={SinglePost}/>
                   <Route exact path='/:id' component={SinglePage}/>
                   <Route exact path='/category/page/:page' component={Categories}/>
-                  <Route exact path='/category/:slug' component={SingleCategory}/>
-                  <Route path='/category/:slug/page/:page' component={SingleCategory}/>
+                  <Route path='/category/:id/page/:page' component={SingleCategory}/>
                   <Route path='*' component={NotFound}/>
                 </Switch>
               </div>
