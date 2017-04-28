@@ -26,13 +26,13 @@ class Categories extends Component{
     const {receiveCategories} = this.props
     const {isLoading} = this.props
     const {currentPage, noOfPages} = receiveCategories
-    const {path} = this.props.match
+    const {url} = this.props.match
     console.log(this.props);
     return(
       <div className='categories'>
         <h1 className='entry-tile'>All Categories</h1>
         {isLoading ? <h2>Fetching Categories</h2> : <CategoryList {...receiveCategories}/>}
-        {isLoading ? null : <Pagination currentPage={currentPage} noOfPages={noOfPages} path={path}/>}
+        {isLoading ? null : <Pagination currentPage={currentPage} noOfPages={noOfPages} url={url}/>}
       </div>
     );
   }

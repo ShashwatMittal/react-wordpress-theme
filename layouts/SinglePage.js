@@ -9,7 +9,6 @@ class SinglePage extends Component{
     super(props);
     const {fetchPage} = props.actions
     const {params} = props.match
-    console.log(props);
     fetchPage(params.id)
   }
 

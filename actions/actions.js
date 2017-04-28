@@ -87,8 +87,6 @@ export function fetchPosts(currentPage){
       json.map((post) => {
         if(post.modified !== localStorage.getItem('post-'+post.id+'-lastModified')){
           localStorage.removeItem('post-'+post.id);
-        }else{
-          console.log('Some Error');
         }
       });
     });
@@ -129,12 +127,8 @@ export function fetchPages(currentPage){
     .then((json) => {
        dispatch(receivePages(currentPage, json));
        json.map((page) => {
-         console.log(page.modified);
-         console.log(localStorage.getItem('page-'+page.id+'-lastModified'));
          if(page.modified !== localStorage.getItem('page-'+page.id+'-lastModified')){
            localStorage.removeItem('page-'+page.id);
-         }else{
-           console.log('Some Error');
          }
        });
     });
@@ -277,7 +271,6 @@ export function fetchCategories(currentPage){
     dispatch(requestCategories(currentPage, true));
     return fetch(WP_SITE_URL+WP_API+'categories?page='+currentPage)
     .then(function(response){
-      console.log(response);
       dispatch(noOfPagesforCategories(response.headers.get('X-WP-TotalPages')));
       return response.json();
     })
@@ -286,10 +279,10 @@ export function fetchCategories(currentPage){
 }
 
 // Actions to fetch Posts for a Specific Category
-function requestPostsForCategory(category, currentPage, loading){
+function requestPostsForCategory(categoryID, currentPage, loading){
   return{
     type: REQUEST_POST_FOR_CATEGORY,
-    category: category,
+    categoryID: categoryID,
     loading: loading,
     currentPage: currentPage
   }
@@ -309,10 +302,10 @@ function receivePostsForCategory(json){
   }
 }
 
-export function fetchPostsForCategory(category, currentPage){
+export function fetchPostsForCategory(categoryID, currentPage){
   return dispatch => {
-    dispatch(requestPostsForCategory(category, currentPage, true));
-    return fetch(WP_SITE_URL+WP_API+'posts?category='+category+'&page='+currentPage+'&per_page='+POSTS_PER_PAGE)
+    dispatch(requestPostsForCategory(categoryID, currentPage, true));
+    return fetch(WP_SITE_URL+WP_API+'posts?categories='+categoryID+'&page='+currentPage+'&per_page='+POSTS_PER_PAGE)
     .then(function(response){
       dispatch(noOfPagesforPostsForCategory(response.headers.get('X-WP-TotalPages')));
       return response.json();

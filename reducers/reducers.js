@@ -156,11 +156,11 @@ function receiveCategories(state = {categories: [], isLoading: true}, action){
   }
 }
 
-function receivePostsForCategory(state = {category: '', posts: [], isLoading: true, currentPage: 1}, action){
+function receivePostsForCategory(state = {categoryID: 0, posts: [], isLoading: true, currentPage: 1}, action){
   switch (action.type) {
     case REQUEST_POST_FOR_CATEGORY:
       return Object.assign({}, state, {
-        category: action.category,
+        categoryID: action.categoryID,
         isLoading: action.loading,
         currentPage: action.currentPage
       });

@@ -6,7 +6,6 @@ class Pagination extends Component{
 
     let NavLinks;
     const {currentPage, noOfPages, url} = this.props
-    console.log();
     let next = (parseInt(currentPage)+1)
     let previous = parseInt(currentPage)-1
     let parentPath = url.slice(0, url.length - 1)

@@ -24,13 +24,12 @@ class Archive extends React.Component{
 
 	render(){
 		const {receivePosts} = this.props;
-		console.log(receivePosts);
-		const {path} = this.props.match;
+		const {path, url} = this.props.match;
 		const {currentPage, noOfPages, isLoading} = receivePosts;
 		return(
 			<div>
 				{isLoading ? <h2>Fetching...</h2> : <PostList {...receivePosts}/> }
-				{isLoading ? null : <Pagination currentPage={currentPage} noOfPages={noOfPages} path={path}/>}
+				{isLoading ? null : <Pagination currentPage={currentPage} noOfPages={noOfPages} path={path} url={url}/>}
 			</div>
 		);
 	}

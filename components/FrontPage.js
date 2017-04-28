@@ -22,11 +22,10 @@ class FrontPage extends Component{
     const isFrontPage = phpData.constants.FRONT_PAGE == '0';
     const {page, isLoading} = this.props.page
     const {currentPage, noOfPages} = receivePosts
-    console.log(this.props);
     return(
       <div>
       {isFrontPage ? <PostList {...receivePosts}/> : isLoading ? <h1>Fetching Page...</h1> : <Page {...page}/>}
-      {isFrontPage ? <Pagination currentPage={currentPage} noOfPages={noOfPages} path='/archive/page/:page'/> : null}
+      {isFrontPage ? <Pagination currentPage={currentPage} noOfPages={noOfPages} url='/archive/page/1'/> : null}
       </div>
     );
   }

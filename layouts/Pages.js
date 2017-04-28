@@ -21,12 +21,12 @@ class Pages extends Component {
 	}
   render(){
     const {pages} = this.props;
-		const {path} = this.props.match;
+		const {url} = this.props.match;
 		const {currentPage, noOfPages, isLoading} = pages;
 		return(
 			<div>
 				{isLoading ? <h2>Fetching...</h2> : <PageList {...pages}/> }
-				<Pagination currentPage={currentPage} noOfPages={noOfPages} path={path}/>
+				<Pagination currentPage={currentPage} noOfPages={noOfPages} url={url}/>
 			</div>
 		);
   }
