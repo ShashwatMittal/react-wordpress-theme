@@ -9,7 +9,7 @@ export const WP_API = constants.API;
 export const POSTS_PER_PAGE = constants.POSTS_PER_PAGE;
 export const MENUS_API = constants.MENUS_API;
 export const FRONT_PAGE = constants.FRONT_PAGE;
-export const CUSTOM_MENU_API = constants.CUSTOM_MENU_API;
+export const MENU_API = constants.MENU_API;
 
 export const REQUEST_API = 'REQUEST_API';
 export const REQUEST_POSTS = 'REQUEST_POSTS';

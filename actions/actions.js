@@ -5,7 +5,7 @@ import {
   REQUEST_USER, RECEIVE_USER, REQUEST_SIDEBAR, RECEIVE_SIDEBAR,
   REQUEST_CATEGORIES, RECEIVE_CATEGORIES, RECEIVE_MENU, REQUEST_MENU,
   POSTS_PER_PAGE, TOTAL_PAGES_FOR_POSTS, TOTAL_PAGES_FOR_PAGES,
-  REQUEST_API, WP_SITE_URL, WP_API, CUSTOM_MENU_API, TOTAL_PAGES_FOR_CATEGORIES,
+  REQUEST_API, WP_SITE_URL, WP_API, MENU_API, TOTAL_PAGES_FOR_CATEGORIES,
   REQUEST_POST_FOR_CATEGORY, RECEIVE_POSTS_FOR_CATEGORY, TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY
 } from '../constants/constants';
 import fetch from 'isomorphic-fetch';
@@ -187,7 +187,7 @@ function receiveMenu (menuLocation, json){
 export function fetchMenu(menuLocation){
   return dispatch => {
     dispatch(requestMenu(true));
-    return fetch(WP_SITE_URL+CUSTOM_MENU_API+'menu-locations/'+menuLocation)
+    return fetch(WP_SITE_URL+MENU_API+'menu-locations/'+menuLocation)
     .then(response => response.json())
     .then(json => dispatch(receiveMenu(menuLocation, json)));
   }

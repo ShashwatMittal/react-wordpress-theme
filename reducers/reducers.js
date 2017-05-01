@@ -44,7 +44,7 @@ function receivePost(state = {post:[], isLoading: true ,postID: 0}, action){
   }
 }
 
-function receiveMenu(state = {menu: [], menuLocation: 'None', isLoading: true}, action){
+function receiveMenu(state = {menu: [], menuLocation: '', isLoading: true}, action){
   switch (action.type) {
     case RECEIVE_MENU:
     return Object.assign({}, state, {

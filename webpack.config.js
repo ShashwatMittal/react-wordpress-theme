@@ -3,7 +3,7 @@ var config = {
 
    output: {
       path:__dirname,
-      filename: 'index.js',
+      filename: 'assets/js/index.js',
    },
 
    devServer: {

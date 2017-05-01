@@ -27,7 +27,6 @@ class Categories extends Component{
     const {isLoading} = this.props
     const {currentPage, noOfPages} = receiveCategories
     const {url} = this.props.match
-    console.log(this.props);
     return(
       <div className='categories'>
         <h1 className='entry-tile'>All Categories</h1>

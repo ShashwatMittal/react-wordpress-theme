@@ -19,9 +19,6 @@ import Categories from './layouts/Categories';
 import SingleCategory from './layouts/SingleCategory';
 import reducer from './reducers/reducers'
 
-
-// Displaying Components for Testing Purposes.
-
 const app = document.getElementById('page');
 const logger = createLogger()
 
