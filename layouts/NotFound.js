@@ -6,12 +6,18 @@ export default class Error extends React.Component {
     return(
 	     <section className = "error-404 not-found">
 	      <header className = "page-header">
-	       <h1 className="page-title" >Thats Embarassing</h1>
+	       <h1 className="page-title error-page-title" >Oops!</h1>
 	      </header>
 	      <div className = "page-content" >
-	      <p>Looks like there does not exist anything at this URL.</p>
+        <h2>{'We can\'t seem to find the page you are looking for'}</h2>
+        <h4>{'Error Code: 404'}</h4>
+	      <p>Here are some helpful links instead:</p>
+
+        <p><Link to='/' className='error-page-link'>Home</Link></p>
+        <p><Link to='/archive/page/1' className='error-page-link'>Archives</Link></p>
+        <p><Link to='/pages/page/1' className='error-page-link'>Pages</Link></p>
+        <p><Link to='/category/page/1' className='error-page-link'>Categories</Link></p>
         </div>
-        <Link to='/'>Go to Home</Link>
 	     </section>
 	  );
   }
