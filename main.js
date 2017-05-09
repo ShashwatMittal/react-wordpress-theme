@@ -40,8 +40,9 @@ ReactDOM.render(
                 <Switch>
                   <Route exact path='/' component={FrontPage}/>
                   <Route path='/archive/page/:page' component={Archive}/>
-                  <Route path='/pages/page/:page' component={Pages}/>
                   <Route exact path='/archive/:id' component={SinglePost}/>
+                  <Redirect from='/archive' to='page/1'/>
+                  <Route path='/pages/page/:page' component={Pages}/>
                   <Route exact path='/:id' component={SinglePage}/>
                   <Route exact path='/category/page/:page' component={Categories}/>
                   <Route path='/category/:id/page/:page' component={SingleCategory}/>

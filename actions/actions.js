@@ -306,12 +306,13 @@ function receivePostsForCategory(json){
 
 export function fetchPostsForCategory(category, currentPage){
   return dispatch => {
-    dispatch(requestPostsForCategory(category, currentPage, true));
+
     return fetch(WP_SITE_URL+WP_API+'categories?slug='+category)
     .then(function(response){
       return response.json();
     })
     .then(function(json){
+      dispatch(requestPostsForCategory(json[0].name, currentPage, true));
       fetch(json[0]._links['wp:post_type']['0'].href + '&page='+currentPage+'&per_page='+POSTS_PER_PAGE)
       .then(function(response){
         dispatch(noOfPagesforPostsForCategory(response.headers.get('X-WP-TotalPages')));
@@ -384,12 +385,13 @@ function receivePostsForTag(json){
 
 export function fetchPostsForTag(tag, currentPage){
   return dispatch => {
-    dispatch(requestPostsForTag(tag, currentPage, true));
+
     return fetch(WP_SITE_URL+WP_API+'tags?slug='+tag)
     .then(function(response){
       return response.json();
     })
     .then(function(json){
+      dispatch(requestPostsForTag(json[0].name, currentPage, true));
       fetch(json[0]._links['wp:post_type']['0'].href + '&page='+currentPage+'&per_page='+POSTS_PER_PAGE)
       .then(function(response){
         dispatch(noOfPagesforPostsForTag(response.headers.get('X-WP-TotalPages')));

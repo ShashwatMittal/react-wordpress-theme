@@ -6,13 +6,13 @@ import PostList from '../components/PostList';
 import Pagination from '../components/componentParts/Pagination'
 
 class SingleCategory extends Component{
-  constructor(props){
-    console.log(props);
-    super(props);
-    const {fetchPostsForCategory} = props.action
-    const {params} = props.match
-    fetchPostsForCategory(props.match.params.id, params.page)
+
+  componentWillMount(){
+    const {fetchPostsForCategory} = this.props.action
+    const {params} = this.props.match
+    fetchPostsForCategory(this.props.match.params.id, params.page)
   }
+
   componentWillReceiveProps(nextProps){
     if(this.props.match.params.page !== nextProps.match.params.page){
       const {fetchPostsForCategory} = nextProps.action
@@ -23,12 +23,12 @@ class SingleCategory extends Component{
   render(){
     const {receivePostsForCategory} = this.props
     const {url} = this.props.match
-    const {posts, isLoading, currentPage, noOfPages} = receivePostsForCategory
+    const {posts, isLoading, currentPage, noOfPages, category} = receivePostsForCategory
     return(
       <div>
+        <h2>{'Category: '+category}</h2>
         {isLoading ? <h1>Fetching Posts</h1>: <PostList posts ={posts}/> }
         {isLoading ? null : <Pagination currentPage={currentPage} noOfPages={noOfPages} url={url}/>}
-
       </div>
     );
   }

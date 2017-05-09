@@ -22,9 +22,10 @@ class SingleTag extends Component{
   render(){
     const {receivePostsForTag} = this.props
     const {url} = this.props.match
-    const {posts, isLoading, currentPage, noOfPages} = receivePostsForTag
+    const {posts, isLoading, currentPage, noOfPages, tag} = receivePostsForTag
     return(
       <div>
+        <h2>{'Tag: '+tag}</h2>
         {isLoading ? <h1>Fetching Posts</h1>: <PostList posts ={posts}/> }
         {isLoading ? null : <Pagination currentPage={currentPage} noOfPages={noOfPages} url={url}/>}
 

@@ -9,6 +9,7 @@ class Footer extends React.Component{
           <Link to='/' className='footer-link'>Home</Link><span> | </span>
           <Link to='/archive/page/1' className='footer-link'>Archives</Link><span> | </span>
           <Link to='/pages/page/1' className='footer-link'>Pages</Link><span> | </span>
+          <Link to='/tag/page/1' className='footer-link'>Tags</Link><span> | </span>
           <Link to='/category/page/1' className='footer-link'>Categories</Link>
           </div>
   		    <div className='site-info'>
