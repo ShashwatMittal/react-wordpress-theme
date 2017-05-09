@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import {BrowserRouter as Router, Route ,browserHistory, Link, Switch} from 'react-router-dom';
+import {createLogger} from 'redux-logger'
+import {BrowserRouter as Router, Route ,browserHistory, Link, Switch, Redirect} from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -15,13 +16,16 @@ import SinglePage from './layouts/SinglePage';
 import NotFound from './layouts/NotFound';
 import Categories from './layouts/Categories';
 import SingleCategory from './layouts/SingleCategory';
+import Tags from './layouts/Tags';
+import SingleTag from './layouts/SingleTag';
 import reducer from './reducers/reducers'
 
 const app = document.getElementById('page');
+const logger = createLogger()
 
 const initialState = {
 }
-let store = createStore(reducer, initialState, applyMiddleware(thunkMiddleware));
+let store = createStore(reducer, initialState, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(
   <Provider store={store}>
@@ -41,6 +45,10 @@ ReactDOM.render(
                   <Route exact path='/:id' component={SinglePage}/>
                   <Route exact path='/category/page/:page' component={Categories}/>
                   <Route path='/category/:id/page/:page' component={SingleCategory}/>
+                  <Redirect from='/category/:category' to='page/1'/>
+                  <Route exact path='/tag/page/:page' component={Tags}/>
+                  <Route path='/tag/:tag/page/:page' component={SingleTag}/>
+                  <Redirect from='/tag/:tag' to='page/1'/>
                   <Route path='*' component={NotFound}/>
                 </Switch>
               </div>

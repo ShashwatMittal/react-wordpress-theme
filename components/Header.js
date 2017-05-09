@@ -34,18 +34,18 @@ class Header extends React.Component{
               <nav id='site-navigation' className='navbar navbar-default' aria-label='Top Menu'>
                 <div className='container-fluid'>
                   <ul id='top-menu' className='nav navbar-nav'>
-                    {menu.map(function(menuItem){
+                    {menu.map(function(menuItem, i){
                         if(menuItem.object == 'post'){
-                          return <li key={menuItem.object_id} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/archive/'+menuItem.object_id}>{menuItem.title}</Link></li>
+                          return <li key={i} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/archive/'+menuItem.object_id}>{menuItem.title}</Link></li>
                         }
                         if(menuItem.object == 'page'){
-                          return <li key={menuItem.object_id} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/'+menuItem.object_id}>{menuItem.title}</Link></li>
+                          return <li key={i} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/'+menuItem.object_id}>{menuItem.title}</Link></li>
                         }
                         if(menuItem.object == 'custom'){
-                          return <li key={menuItem.object_id} id={'menu-item-'+menuItem.object_id} className='menu-item'><a href={menuItem.url}>{menuItem.title}</a></li>
+                          return <li key={i} id={'menu-item-'+menuItem.object_id} className='menu-item'><a href={menuItem.url}>{menuItem.title}</a></li>
                         }
                         if(menuItem.object == 'category'){
-                          return <li key={menuItem.object_id} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/category/'+menuItem.object_id}>{menuItem.title}</Link></li>
+                          return <li key={i} id={'menu-item-'+menuItem.object_id} className='menu-item'><Link to={'/category/'+menuItem.object_id}>{menuItem.title}</Link></li>
                         }
                       })
                     }

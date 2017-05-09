@@ -3,7 +3,8 @@ import {
   RECEIVE_POSTS, RECEIVE_POST, REQUEST_POST, REQUEST_POSTS, REQUEST_PAGES, RECEIVE_PAGES,
   RECEIVE_PAGE, REQUEST_PAGE, REQUEST_USER, RECEIVE_USER, RECEIVE_SIDEBAR, REQUEST_SIDEBAR,
   REQUEST_MENU, RECEIVE_MENU, TOTAL_PAGES_FOR_POSTS, TOTAL_PAGES_FOR_PAGES, REQUEST_CATEGORIES,
-  RECEIVE_CATEGORIES, TOTAL_PAGES_FOR_CATEGORIES, REQUEST_POST_FOR_CATEGORY, RECEIVE_POSTS_FOR_CATEGORY, TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY
+  RECEIVE_CATEGORIES, TOTAL_PAGES_FOR_CATEGORIES, REQUEST_POST_FOR_CATEGORY, RECEIVE_POSTS_FOR_CATEGORY, TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY,
+  REQUEST_TAGS, RECEIVE_TAGS, TOTAL_PAGES_FOR_TAGS, REQUEST_POST_FOR_TAG, RECEIVE_POSTS_FOR_TAG, TOTAL_PAGES_FOR_POSTS_FOR_TAG
 } from '../constants/constants';
 
 function receivePosts(state = {posts:[], isLoading: true, currentPage: 0, noOfPages: 0}, action){
@@ -156,11 +157,11 @@ function receiveCategories(state = {categories: [], isLoading: true}, action){
   }
 }
 
-function receivePostsForCategory(state = {categoryID: 0, posts: [], isLoading: true, currentPage: 1}, action){
+function receivePostsForCategory(state = {category: '', posts: [], isLoading: true, currentPage: 1}, action){
   switch (action.type) {
     case REQUEST_POST_FOR_CATEGORY:
       return Object.assign({}, state, {
-        categoryID: action.categoryID,
+        category: action.category,
         isLoading: action.loading,
         currentPage: action.currentPage
       });
@@ -178,6 +179,50 @@ function receivePostsForCategory(state = {categoryID: 0, posts: [], isLoading: t
   }
 }
 
+function receiveTags(state = {tags: [], isLoading: true}, action){
+  switch (action.type) {
+    case REQUEST_TAGS:
+    return Object.assign({}, state, {
+              isLoading: action.loading,
+              currentPage: action.currentPage
+    });
+    case RECEIVE_TAGS:
+    return Object.assign({}, state, {
+              tags: action.tags,
+              isLoading: false
+    });
+    case TOTAL_PAGES_FOR_TAGS:
+    return Object.assign({}, state, {
+              noOfPages: action.noOfPages
+    });
+    default:
+    return state;
+
+  }
+}
+
+function receivePostsForTag(state = {tag: '', posts: [], isLoading: true, currentPage: 1}, action){
+  switch (action.type) {
+    case REQUEST_POST_FOR_TAG:
+      return Object.assign({}, state, {
+        tag: action.tag,
+        isLoading: action.loading,
+        currentPage: action.currentPage
+      });
+    case RECEIVE_POSTS_FOR_TAG:
+      return Object.assign({}, state, {
+        isLoading: false,
+        posts: action.posts
+      });
+    case TOTAL_PAGES_FOR_POSTS_FOR_TAG:
+      return Object.assign({}, state, {
+        noOfPages: action.noOfPages
+      });
+    default:
+      return state;
+  }
+}
+
 const reducer = combineReducers({
   receivePosts,
   receivePost,
@@ -187,7 +232,9 @@ const reducer = combineReducers({
   receiveUser,
   receiveSidebar,
   receiveCategories,
-  receivePostsForCategory
+  receivePostsForCategory,
+  receiveTags,
+  receivePostsForTag
 });
 
 export default reducer;

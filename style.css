@@ -155,6 +155,21 @@ img {
     font-weight: bold;
 }
 
+.tags ul li{
+    padding: 10px 0;
+    font-size: 30px;
+}
+
+.tags ul{
+    list-style: none;
+    padding: 0;
+    text-transform: capitalize;
+}
+
+.tags .entry-title{
+    font-weight: bold;
+}
+
 .footer-link{
     padding: 0 8px;
 }

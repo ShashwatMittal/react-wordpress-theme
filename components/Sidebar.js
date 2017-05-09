@@ -2,7 +2,8 @@ import React from 'react';
 import * as Actions from '../actions/actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import renderHTML from 'react-render-html'
+import renderHTML from 'react-render-html';
+import WP_SITE_URL from '../constants/constants';
 
 class Sidebar extends React.Component{
 	constructor(props){
@@ -13,9 +14,10 @@ class Sidebar extends React.Component{
 
 	render() {
 		const{sidebar, isLoading} = this.props.sidebar
+		const site = escape(WP_SITE_URL);
 		return(
 		<aside id='secondary' className='widget-area col-xs-12 col-sm-12 col-md-4 col-lg-3'>
-		{isLoading ? <h1>Fetching Sidebar...</h1> : renderHTML(sidebar.rendered) }
+		{isLoading ? <h1>Fetching Sidebar...</h1> : <div dangerouslySetInnerHTML={{__html: sidebar.rendered}} />}
 		</aside>
 		);
 	}
@@ -26,6 +28,11 @@ function mapStateToProps(state){
 	return{
 		sidebar: receiveSidebar
 	}
+}
+
+function handelClick(e) {
+	e.preventDefault();
+  browserHistory.push('/home');
 }
 
 function mapDispatchToProps(dispatch){

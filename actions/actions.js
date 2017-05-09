@@ -6,7 +6,9 @@ import {
   REQUEST_CATEGORIES, RECEIVE_CATEGORIES, RECEIVE_MENU, REQUEST_MENU,
   POSTS_PER_PAGE, TOTAL_PAGES_FOR_POSTS, TOTAL_PAGES_FOR_PAGES,
   REQUEST_API, WP_SITE_URL, WP_API, MENU_API, TOTAL_PAGES_FOR_CATEGORIES,
-  REQUEST_POST_FOR_CATEGORY, RECEIVE_POSTS_FOR_CATEGORY, TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY
+  REQUEST_POST_FOR_CATEGORY, RECEIVE_POSTS_FOR_CATEGORY, TOTAL_PAGES_FOR_POSTS_FOR_CATEGORY,
+  REQUEST_TAGS, RECEIVE_TAGS, TOTAL_PAGES_FOR_TAGS, TOTAL_PAGES_FOR_POSTS_FOR_TAG,
+  REQUEST_POST_FOR_TAG, RECEIVE_POSTS_FOR_TAG
 } from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 
@@ -279,10 +281,10 @@ export function fetchCategories(currentPage){
 }
 
 // Actions to fetch Posts for a Specific Category
-function requestPostsForCategory(categoryID, currentPage, loading){
+function requestPostsForCategory(category, currentPage, loading){
   return{
     type: REQUEST_POST_FOR_CATEGORY,
-    categoryID: categoryID,
+    category: category,
     loading: loading,
     currentPage: currentPage
   }
@@ -302,14 +304,98 @@ function receivePostsForCategory(json){
   }
 }
 
-export function fetchPostsForCategory(categoryID, currentPage){
+export function fetchPostsForCategory(category, currentPage){
   return dispatch => {
-    dispatch(requestPostsForCategory(categoryID, currentPage, true));
-    return fetch(WP_SITE_URL+WP_API+'posts?categories='+categoryID+'&page='+currentPage+'&per_page='+POSTS_PER_PAGE)
+    dispatch(requestPostsForCategory(category, currentPage, true));
+    return fetch(WP_SITE_URL+WP_API+'categories?slug='+category)
     .then(function(response){
-      dispatch(noOfPagesforPostsForCategory(response.headers.get('X-WP-TotalPages')));
       return response.json();
     })
-    .then(json => dispatch(receivePostsForCategory(json)));
+    .then(function(json){
+      fetch(json[0]._links['wp:post_type']['0'].href + '&page='+currentPage+'&per_page='+POSTS_PER_PAGE)
+      .then(function(response){
+        dispatch(noOfPagesforPostsForCategory(response.headers.get('X-WP-TotalPages')));
+        return response.json();
+      })
+      .then(json => dispatch(receivePostsForCategory(json)));
+    });
+  }
+}
+
+// Actions for Retrieving Tags.
+function requestTags(currentPage, loading){
+  return{
+    type: REQUEST_TAGS,
+    currentPage: currentPage,
+    loading: loading
+  }
+}
+
+function receiveTags(json){
+  return{
+    type: RECEIVE_TAGS,
+    tags: json
+  }
+}
+
+function noOfPagesforTags(totalPages){
+  return{
+    type: TOTAL_PAGES_FOR_TAGS,
+    noOfPages: totalPages
+  }
+}
+
+
+export function fetchTags(currentPage){
+  return dispatch => {
+    dispatch(requestTags(currentPage, true));
+    return fetch(WP_SITE_URL+WP_API+'tags?page='+currentPage)
+    .then(function(response){
+      dispatch(noOfPagesforTags(response.headers.get('X-WP-TotalPages')));
+      return response.json();
+    })
+    .then(json => dispatch(receiveTags(json)));
+  }
+}
+
+// Actions to fetch Posts for a Specific Tag
+function requestPostsForTag(tag, currentPage, loading){
+  return{
+    type: REQUEST_POST_FOR_TAG,
+    tag: tag,
+    loading: loading,
+    currentPage: currentPage
+  }
+}
+
+function noOfPagesforPostsForTag(totalPages){
+  return{
+    type: TOTAL_PAGES_FOR_POSTS_FOR_TAG,
+    noOfPages: totalPages
+  }
+}
+
+function receivePostsForTag(json){
+  return{
+    type: RECEIVE_POSTS_FOR_TAG,
+    posts: json
+  }
+}
+
+export function fetchPostsForTag(tag, currentPage){
+  return dispatch => {
+    dispatch(requestPostsForTag(tag, currentPage, true));
+    return fetch(WP_SITE_URL+WP_API+'tags?slug='+tag)
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(json){
+      fetch(json[0]._links['wp:post_type']['0'].href + '&page='+currentPage+'&per_page='+POSTS_PER_PAGE)
+      .then(function(response){
+        dispatch(noOfPagesforPostsForTag(response.headers.get('X-WP-TotalPages')));
+        return response.json();
+      })
+      .then(json => dispatch(receivePostsForTag(json)));
+    });
   }
 }

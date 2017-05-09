@@ -5,25 +5,24 @@ import {bindActionCreators} from 'redux';
 import PostList from '../components/PostList';
 import Pagination from '../components/componentParts/Pagination'
 
-class SingleCategory extends Component{
+class SingleTag extends Component{
   constructor(props){
-    console.log(props);
     super(props);
-    const {fetchPostsForCategory} = props.action
+    const {fetchPostsForTag} = props.action
     const {params} = props.match
-    fetchPostsForCategory(props.match.params.id, params.page)
+    fetchPostsForTag(props.match.params.tag, params.page)
   }
   componentWillReceiveProps(nextProps){
     if(this.props.match.params.page !== nextProps.match.params.page){
-      const {fetchPostsForCategory} = nextProps.action
+      const {fetchPostsForTag} = nextProps.action
       const {params} = nextProps.match
-      fetchPostsForCategory(nextProps.match.params.id, params.page)
+      fetchPostsForTag(nextProps.match.params.tag, params.page)
     }
   }
   render(){
-    const {receivePostsForCategory} = this.props
+    const {receivePostsForTag} = this.props
     const {url} = this.props.match
-    const {posts, isLoading, currentPage, noOfPages} = receivePostsForCategory
+    const {posts, isLoading, currentPage, noOfPages} = receivePostsForTag
     return(
       <div>
         {isLoading ? <h1>Fetching Posts</h1>: <PostList posts ={posts}/> }
@@ -35,9 +34,9 @@ class SingleCategory extends Component{
 }
 
 function mapStateToProps(state){
-  const {receivePostsForCategory} = state
+  const {receivePostsForTag} = state
   return{
-    receivePostsForCategory
+    receivePostsForTag
   }
 }
 
@@ -50,4 +49,4 @@ function mapDispatchToProps(dispatch){
 module.exports = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SingleCategory);
+)(SingleTag);

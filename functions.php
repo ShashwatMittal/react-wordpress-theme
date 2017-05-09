@@ -6,7 +6,8 @@ require_once 'class-tgm-plugin-activation.php';
  * Enqueues the required scripts for the theme.
  */
 function enqueue_scripts() {
-	wp_register_script( 'react_theme', trailingslashit( get_template_directory_uri() ) . 'assets/js/index.js', array(), NULL, true );
+	wp_register_script( 'jquery', 'https://code.jquery.com/jquery-1.12.4.js', array(), NULL, true );
+	wp_register_script( 'react_theme', 'http://localhost:8080/assets/js/index.js', ['jquery'], NULL, true );
 	wp_register_style( 'bootstrap_css', trailingslashit( get_template_directory_uri() ) . 'assets/css/bootstrap.min.css', NULL );
 	$translation_array = array(
 		'constants' => array(
@@ -26,6 +27,15 @@ function enqueue_scripts() {
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
+
+/**
+* Sets the permalink structure required by the theme. This can not be changed by the user otherwise the theme might break.
+*/
+function set_permalink(){
+    global $wp_rewrite;
+    $wp_rewrite->set_permalink_structure('/%year%/%monthnum%/%day%/%postname%/');
+}
+add_action('init', 'set_permalink');
 
 /**
  * Registering Navigation Menu and Sidebar for the theme.
