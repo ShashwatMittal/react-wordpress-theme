@@ -7,7 +7,7 @@ require_once 'class-tgm-plugin-activation.php';
  */
 function enqueue_scripts() {
 	wp_register_script( 'jquery', 'https://code.jquery.com/jquery-1.12.4.js', array(), NULL, true );
-	wp_register_script( 'react_theme', 'http://localhost:8080/assets/js/index.js', ['jquery'], NULL, true );
+	wp_register_script( 'react_theme', trailingslashit( get_template_directory_uri() ) . 'assets/js/index.js', ['jquery'], NULL, true );
 	wp_register_style( 'bootstrap_css', trailingslashit( get_template_directory_uri() ) . 'assets/css/bootstrap.min.css', NULL );
 	$translation_array = array(
 		'constants' => array(

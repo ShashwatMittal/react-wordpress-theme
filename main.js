@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import {createLogger} from 'redux-logger'
 import {BrowserRouter as Router, Route ,browserHistory, Link, Switch, Redirect} from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -21,11 +20,10 @@ import SingleTag from './layouts/SingleTag';
 import reducer from './reducers/reducers'
 
 const app = document.getElementById('page');
-const logger = createLogger()
 
 const initialState = {
 }
-let store = createStore(reducer, initialState, applyMiddleware(thunkMiddleware, logger));
+let store = createStore(reducer, initialState, applyMiddleware(thunkMiddleware));
 
 ReactDOM.render(
   <Provider store={store}>

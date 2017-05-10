@@ -234,7 +234,7 @@ const reducer = combineReducers({
   receiveCategories,
   receivePostsForCategory,
   receiveTags,
-  receivePostsForTag
+  receivePostsForTag,
 });
 
 export default reducer;
