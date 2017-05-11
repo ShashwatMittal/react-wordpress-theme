@@ -14,8 +14,8 @@ The things to be kept in mind before using this theme:
 
 1. Make sure you have WordPress updated to 4.7 or higher that supports the REST API endpoints.
 2. The WP REST API does not yet provide any endpoints for Menus and Sidebar. The theme uses the following plugins to support them:
-  1. [WP REST API Menus](https://wordpress.org/plugins/wp-api-menus/) by [Fulvio Notarstefano](https://github.com/unfulvio)
-  2. [WP REST API Sidebars](https://wordpress.org/plugins/wp-rest-api-sidebars/) by [Martin Pettersson](https://github.com/martin-pettersson)
+  - [WP REST API Menus](https://wordpress.org/plugins/wp-api-menus/) by [Fulvio Notarstefano](https://github.com/unfulvio)
+  - [WP REST API Sidebars](https://wordpress.org/plugins/wp-rest-api-sidebars/) by [Martin Pettersson](https://github.com/martin-pettersson)
 
 3. The theme does not support all the permalink options provided by the WordPress admin panel. The permalink need to be set to `/%year%/%monthnum%/%postname%/` for the theme to work. It will automatically set the permalink to the required option when installed.
 4. The theme will not display anything if Javascript is disabled. Make sure Javascript is enabled in the browser.
