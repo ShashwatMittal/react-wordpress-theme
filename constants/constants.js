@@ -1,5 +1,6 @@
 const constants = global.phpData.constants;
 
+// All the constants and values from the localized script for the project are defined in this file.
 export const WP_SITE_URL = constants.SITE_URL;
 export const WP_VERSION = constants.WP_VERSION;
 export const WP_PERMALINK = constants.PERMALINK_STRUCTURE;

@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 export default class Error extends React.Component {
+
+    // 404 Error Page.
     render() {
     return(
 	     <section className = "error-404 not-found">

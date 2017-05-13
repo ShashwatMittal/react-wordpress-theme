@@ -24,13 +24,14 @@ class FrontPage extends Component{
     const {currentPage, noOfPages} = receivePosts
     return(
       <div>
+      {/*Displays the set front page or a list of latest posts in accordance to WordPress reading settings.*/}
       {isFrontPage ? <PostList {...receivePosts}/> : isLoading ? <h1>Fetching Page...</h1> : <Page {...page}/>}
       {isFrontPage ? <Pagination currentPage={currentPage} noOfPages={noOfPages} url='/archive/page/1'/> : null}
       </div>
     );
   }
 }
-
+// Mapping part of the state to the Props of the component.
 function mapStateToProps(state){
 	const {receivePosts, receivePage} = state;
 	return {
@@ -38,13 +39,14 @@ function mapStateToProps(state){
     page: receivePage
 	}
 }
-
+// Passing actions as Props of the Component.
 function mapDispatchToProps(dispatch){
 	return{
 		actions: bindActionCreators(Actions, dispatch)
 	}
 }
 
+// Connect binds the state and actions to the props of the component.
 module.exports = connect(
   mapStateToProps,
   mapDispatchToProps

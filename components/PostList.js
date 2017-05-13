@@ -3,6 +3,7 @@ import renderHTML from 'react-render-html';
 import {Link} from 'react-router-dom';
 class PostList extends Component {
 
+  // Display a list of Posts with pagination.
   render () {
     const {posts} = this.props
     return (

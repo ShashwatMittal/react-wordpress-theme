@@ -7,12 +7,13 @@ import Pagination from '../components/componentParts/Pagination'
 
 class SingleCategory extends Component{
 
+  // Dispatches actions to fetch posts for the Selected category.
   componentWillMount(){
     const {fetchPostsForCategory} = this.props.action
     const {params} = this.props.match
     fetchPostsForCategory(this.props.match.params.id, params.page)
   }
-
+  // Checks for changes in props and dispatches actions to fetch more posts if any for the selected category.
   componentWillReceiveProps(nextProps){
     if(this.props.match.params.page !== nextProps.match.params.page){
       const {fetchPostsForCategory} = nextProps.action

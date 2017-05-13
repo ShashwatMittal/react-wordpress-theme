@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 class PageList extends Component{
   render(){
     const {pages} = this.props
+
+    // Lists all the pages from WordPress.
     return(
       <div>
         {pages.map((page)=>

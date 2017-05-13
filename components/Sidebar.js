@@ -9,6 +9,7 @@ class Sidebar extends React.Component{
 	constructor(props){
 		super(props);
 		const {fetchSidebar} = props.actions
+		// Dispatches an action to fetch the sidebar.
 		fetchSidebar('sidebar-1');
 	}
 

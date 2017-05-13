@@ -6,12 +6,15 @@ import {bindActionCreators} from 'redux';
 import Pagination from '../components/componentParts/Pagination';
 
 class Pages extends Component {
+
+  // Initializes component data.
   constructor(props){
 		super(props)
 		const {params} = props.match
 		const {fetchPages} = props.actions
 		fetchPages(params.page)
 	}
+  // Checks for changes in props and dispatches actions f
 	componentWillReceiveProps(nextProps){
 		const {fetchPages} = nextProps.actions
 		const {page} = nextProps.match.params

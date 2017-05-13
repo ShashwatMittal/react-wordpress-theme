@@ -6,12 +6,14 @@ import PostList from '../components/PostList';
 import Pagination from '../components/componentParts/Pagination'
 
 class SingleTag extends Component{
+  // Initializes component data.
   constructor(props){
     super(props);
     const {fetchPostsForTag} = props.action
     const {params} = props.match
     fetchPostsForTag(props.match.params.tag, params.page)
   }
+  // Listens for changes in props and fetch data if required.
   componentWillReceiveProps(nextProps){
     if(this.props.match.params.page !== nextProps.match.params.page){
       const {fetchPostsForTag} = nextProps.action

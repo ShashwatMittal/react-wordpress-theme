@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 class Footer extends React.Component{
     render() {
 	    return(
+        {/*Site Footer*/}
   	    <footer id='colophon' className='site-footer text-center' role='contentinfo'>
           <div className='site-map'>
           <Link to='/' className='footer-link'>Home</Link><span> | </span>

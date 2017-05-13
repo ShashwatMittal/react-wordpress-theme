@@ -6,14 +6,14 @@ import CategoryList from '../components/CategoryList';
 import Pagination from '../components/componentParts/Pagination';
 
 class Categories extends Component{
-
+  // Initializes the component data.
   constructor(props){
     super(props);
     const {fetchCategories} = props.actions
     const {page} = props.match.params
     fetchCategories(page);
   }
-
+  // Checks for changes in props and dispatches actions to fetch more categories.
   componentWillReceiveProps(nextProps){
     if(this.props.match.params.page !== nextProps.match.params.page){
       const {fetchCategories} = nextProps.actions

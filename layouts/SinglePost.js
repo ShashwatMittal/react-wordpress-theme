@@ -5,12 +5,15 @@ import * as Actions from '../actions/actions';
 import {bindActionCreators} from 'redux';
 
 class SinglePost extends Component{
+
+  // Initializes post data.
   constructor(props){
     super(props);
     const {fetchPost} = props.actions
     const {params} = props.match
     fetchPost(params.id);
   }
+  // Listens for changes in props and re-render component if required.
   componentWillReceiveProps(nextProps){
     if(this.props.match.params.id !== nextProps.match.params.id){
       const {fetchPost} = nextProps.actions

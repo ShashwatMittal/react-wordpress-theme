@@ -7,6 +7,7 @@ import {
   REQUEST_TAGS, RECEIVE_TAGS, TOTAL_PAGES_FOR_TAGS, REQUEST_POST_FOR_TAG, RECEIVE_POSTS_FOR_TAG, TOTAL_PAGES_FOR_POSTS_FOR_TAG
 } from '../constants/constants';
 
+// Reducer function to store Posts data.
 function receivePosts(state = {posts:[], isLoading: true, currentPage: 0, noOfPages: 0}, action){
   switch (action.type) {
     case RECEIVE_POSTS:
@@ -27,7 +28,7 @@ function receivePosts(state = {posts:[], isLoading: true, currentPage: 0, noOfPa
       return state;
   }
 }
-
+// Reducer function to store a Single post data.
 function receivePost(state = {post:[], isLoading: true ,postID: 0}, action){
   switch (action.type) {
     case RECEIVE_POST:
@@ -45,6 +46,7 @@ function receivePost(state = {post:[], isLoading: true ,postID: 0}, action){
   }
 }
 
+// Reducer function to store Menu.
 function receiveMenu(state = {menu: [], menuLocation: '', isLoading: true}, action){
   switch (action.type) {
     case RECEIVE_MENU:
@@ -62,6 +64,7 @@ function receiveMenu(state = {menu: [], menuLocation: '', isLoading: true}, acti
   }
 }
 
+// Reducer function to store Pages data.
 function receivePages(state = {pages: [], isLoading: true, currentPage: 0, noOfPages: 0}, action){
   switch (action.type) {
     case RECEIVE_PAGES:
@@ -84,6 +87,7 @@ function receivePages(state = {pages: [], isLoading: true, currentPage: 0, noOfP
   }
 }
 
+// Reducer function to store a Single page data.
 function receivePage(state = {page:[], isLoading: true ,pageID: 0}, action){
   switch (action.type) {
     case RECEIVE_PAGE:
@@ -101,6 +105,7 @@ function receivePage(state = {page:[], isLoading: true ,pageID: 0}, action){
   }
 }
 
+// Reducer function to store author/user data.
 function receiveUser(state = {user:[], isLoading: true, userID: 0}, action){
   switch (action.type) {
       case RECEIVE_USER:
@@ -118,6 +123,7 @@ function receiveUser(state = {user:[], isLoading: true, userID: 0}, action){
   }
 }
 
+// Reducer function to store Sidebar data.
 function receiveSidebar(state = {sidebar:[], isLoading:true}, action){
   switch (action.type) {
     case REQUEST_SIDEBAR:
@@ -135,6 +141,7 @@ function receiveSidebar(state = {sidebar:[], isLoading:true}, action){
   }
 }
 
+// // Reducer function to store categories.
 function receiveCategories(state = {categories: [], isLoading: true}, action){
   switch (action.type) {
     case REQUEST_CATEGORIES:
@@ -157,6 +164,7 @@ function receiveCategories(state = {categories: [], isLoading: true}, action){
   }
 }
 
+// Reducer function to store Posts for a Category.
 function receivePostsForCategory(state = {category: '', posts: [], isLoading: true, currentPage: 1}, action){
   switch (action.type) {
     case REQUEST_POST_FOR_CATEGORY:
@@ -179,6 +187,7 @@ function receivePostsForCategory(state = {category: '', posts: [], isLoading: tr
   }
 }
 
+// Reducer function to store tags data.
 function receiveTags(state = {tags: [], isLoading: true}, action){
   switch (action.type) {
     case REQUEST_TAGS:
@@ -201,6 +210,7 @@ function receiveTags(state = {tags: [], isLoading: true}, action){
   }
 }
 
+// Reducer function to store Posts for a tag.
 function receivePostsForTag(state = {tag: '', posts: [], isLoading: true, currentPage: 1}, action){
   switch (action.type) {
     case REQUEST_POST_FOR_TAG:
@@ -223,6 +233,7 @@ function receivePostsForTag(state = {tag: '', posts: [], isLoading: true, curren
   }
 }
 
+// Combining all reducer functions into one function using Combine reducers from Redux.
 const reducer = combineReducers({
   receivePosts,
   receivePost,

@@ -25,6 +25,7 @@ const initialState = {
 }
 let store = createStore(reducer, initialState, applyMiddleware(thunkMiddleware));
 
+// Handles the routing of the whole site. Defines all the different routes.
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>

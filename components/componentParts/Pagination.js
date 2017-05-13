@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 
 class Pagination extends Component{
   render(){
-
     let NavLinks;
     const {currentPage, noOfPages, url} = this.props
     let next = (parseInt(currentPage)+1)

@@ -10,6 +10,7 @@ class Post extends Component{
 componentWillMount(){
   const {fetchUser} = this.props.actions
   const {author} = this.props.post
+  // Dispatches an action to gather author data.
   fetchUser(author)
 }
 

@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 class TagList extends Component{
 
+  // Displays a list of all the Tags.
   render(){
     return(
       <ul>

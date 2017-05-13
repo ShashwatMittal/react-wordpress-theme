@@ -6,14 +6,14 @@ import TagList from '../components/TagList';
 import Pagination from '../components/componentParts/Pagination';
 
 class Tags extends Component{
-
+  // Initializes component data.
   constructor(props){
     super(props);
     const {fetchTags} = props.actions
     const {page} = props.match.params
     fetchTags(page);
   }
-
+  // Listens for changes in props and fetch required data.
   componentWillReceiveProps(nextProps){
     if(this.props.match.params.page !== nextProps.match.params.page){
       const {fetchTags} = nextProps.actions

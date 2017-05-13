@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 class Header extends React.Component{
   constructor(props){
     super(props);
+    // Dispatches an action to Fetch the menu.
     props.actions.fetchMenu('primary');
   }
 

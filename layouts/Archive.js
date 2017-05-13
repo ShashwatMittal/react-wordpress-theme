@@ -8,12 +8,16 @@ import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import Pagination from '../components/componentParts/Pagination';
 class Archive extends React.Component{
+
+	// Initializes the Component data.
 	constructor(props){
 		super(props)
 		const {params} = props.match
 		const {fetchPosts} = props.actions
+		// Dispatches an action to fetch all the posts.
 		fetchPosts(params.page)
 	}
+	// Checks for changes in Props and dispatches actions for fetching more posts.
 	componentWillReceiveProps(nextProps){
 		if(this.props.match.params.page !== nextProps.match.params.page){
 			const {fetchPosts} = nextProps.actions
